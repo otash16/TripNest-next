@@ -326,12 +326,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')} </span>
+							<span>
+								{' '}
+								{searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Destination type')}{' '}
+							</span>
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openRooms ? 'on' : ''}`} onClick={roomStateChangeHandler}>
 							<span>
-								{searchFilter?.search?.roomsList ? `${searchFilter?.search?.roomsList[0]} rooms}` : t('Rooms')}
+								{searchFilter?.search?.roomsList ? `${searchFilter?.search?.roomsList[0]} guests}` : t('Guests')}
 							</span>
 							<ExpandMoreIcon />
 						</Box>
