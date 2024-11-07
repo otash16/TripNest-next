@@ -346,6 +346,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						</Box>
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
+							<span className="advanced-search-text">Search</span>
 						</Box>
 					</Stack>
 
@@ -379,7 +380,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{[1, 2, 3, 4, 5].map((room: number) => {
 							return (
 								<span onClick={() => propertyRoomSelectHandler(room)} key={room}>
-									{room} room{room > 1 ? 's' : ''}
+									{room} guest{room > 1 ? 's' : ''}
 								</span>
 							);
 						})}
@@ -400,7 +401,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								<CloseIcon />
 							</div>
 							<div className={'top'}>
-								<span>Find your home</span>
+								<span>Find your destination</span>
 								<div className={'search-input-box'}>
 									<img src="/img/icons/search.svg" alt="" />
 									<input
@@ -450,8 +451,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 													inputProps={{ 'aria-label': 'Without label' }}
 												>
 													<MenuItem value={'all'}>All Options</MenuItem>
-													<MenuItem value={'propertyBarter'}>Barter</MenuItem>
-													<MenuItem value={'propertyRent'}>Rent</MenuItem>
+													<MenuItem value={'propertyBarter'}>Family</MenuItem>
+													<MenuItem value={'propertyRent'}>Seasonal</MenuItem>
 												</Select>
 											</FormControl>
 										</div>
