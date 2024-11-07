@@ -134,6 +134,9 @@ import { AgentsInquiry } from '../../types/member/member.input';
 import { Property } from '../../types/property/property';
 import TrendPropertyCard from './TrendPropertyCard';
 import { PropertiesInquiry } from '../../types/property/property.input';
+import { useQuery } from '@apollo/client';
+import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { T } from '../../types/common';
 
 interface TrendPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -145,7 +148,21 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	const [trendProperties, setTrendProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getProperties,
+		data: getPropertiesData,
+		error: getAgentPropertiesError,
+		refetch: getPropertiesRefetch,
+	} = useQuery(GET_PROPERTIES, {
+		fetchPolicy: 'cache-and-network',
+		variables: { input: initialInput },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setTrendProperties(data?.getProperties?.list);
+		},
+	});
 	/** HANDLERS **/
+	if (trendProperties) console.log('trendProperties: +++', trendProperties);
 
 	if (device === 'mobile') {
 		return (
