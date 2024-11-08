@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Property } from '../../types/property/property';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
@@ -29,37 +30,37 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 				>
-					{property?.propertyRank && property?.propertyRank >= 50 ? (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
-						</div>
-					) : (
-						''
-					)}
-
 					<div className={'price'}>${property.propertyPrice}</div>
+					<div className="like-btn-wrapper">
+						<IconButton color={'default'}>
+							{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+								<FavoriteIcon style={{ color: 'red' }} />
+							) : (
+								<FavoriteIcon />
+							)}
+						</IconButton>
+					</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property.propertyTitle}</strong>
 					<p className={'desc'}>{property.propertyAddress}</p>
-					<div className={'options'}>
+					{/* <div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
 							<span>{property?.propertyBeds} bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span>{property?.propertyBath} baths</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<span>{property?.propertyGuests} guests</span>
 						</div>
-					</div>
+					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<p>{property?.propertyRent ? 'rent' : 'sale'}</p>
+						<p>{property?.propertyFamily ? 'Family' : 'Seasonal'}</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
@@ -77,38 +78,43 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+					height={'300px'}
 				>
-					{property?.propertyRank && property?.propertyRank >= 50 ? (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
-						</div>
-					) : (
-						''
-					)}
-
 					<div className={'price'}>${property.propertyPrice}</div>
+					<div className="like-btn-wrapper">
+						<IconButton color={'default'}>
+							{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+								<FavoriteIcon style={{ color: 'red' }} />
+							) : (
+								<FavoriteIcon />
+							)}
+						</IconButton>
+					</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property.propertyTitle}</strong>
-					<p className={'desc'}>{property.propertyAddress}</p>
-					<div className={'options'}>
+					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
+					<div className="address-wrapper">
+						<img className="location-icon" src="/img/icons/location.svg" alt="" />
+						<p className={'address'}>{property.propertyAddress}</p>
+					</div>
+					{/* <div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
 							<span>{property?.propertyBeds} bed</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<img src="/img/icons/bath.svg" alt="" />
+							<span>{property?.propertyBath} baths</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<img src="/img/icons/guests.svg" alt="" />
+							<span>{property?.propertyGuests} guests</span>
 						</div>
-					</div>
+					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<p>{property?.propertyRent ? 'rent' : 'sale'}</p>
+						<p>{property?.propertyFamily ? 'family' : 'seasonal'}</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />

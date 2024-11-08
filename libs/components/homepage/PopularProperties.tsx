@@ -9,6 +9,9 @@ import PopularPropertyCard from './PopularPropertyCard';
 import { Property } from '../../types/property/property';
 import Link from 'next/link';
 import { PropertiesInquiry } from '../../types/property/property.input';
+import { GET_PROPERTIES } from '../../../apollo/user/query';
+import { useQuery } from '@apollo/client';
+import { T } from '../../types/common';
 
 interface PopularPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -20,6 +23,19 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 	const [popularProperties, setPopularProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getProperties,
+		data: getPropertiesData,
+		error: getAgentPropertiesError,
+		refetch: getPropertiesRefetch,
+	} = useQuery(GET_PROPERTIES, {
+		fetchPolicy: 'cache-and-network',
+		variables: { input: initialInput },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setPopularProperties(data?.getProperties?.list);
+		},
+	});
 	/** HANDLERS **/
 
 	if (!popularProperties) return null;
@@ -32,21 +48,13 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 						<span>Popular properties</span>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'popular-property-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={25}
-							modules={[Autoplay]}
-						>
-							{popularProperties.map((property: Property) => {
-								return (
-									<SwiperSlide key={property._id} className={'popular-property-slide'}>
-										<PopularPropertyCard property={property} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
+						{popularProperties.map((property: Property) => {
+							return (
+								<SwiperSlide key={property._id} className={'popular-property-slide'}>
+									<PopularPropertyCard property={property} />
+								</SwiperSlide>
+							);
+						})}
 					</Stack>
 				</Stack>
 			</Stack>
@@ -57,46 +65,22 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular properties</span>
-							<p>Popularity is based on views</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
-								<Link href={'/property'}>
-									<span>See All Categories</span>
-								</Link>
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
+							<span>Popular destinations</span>
+							<p>Popularity ranked by views</p>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'popular-property-swiper'}
-							slidesPerView={'auto'}
-							spaceBetween={25}
-							modules={[Autoplay, Navigation, Pagination]}
-							navigation={{
-								nextEl: '.swiper-popular-next',
-								prevEl: '.swiper-popular-prev',
-							}}
-							pagination={{
-								el: '.swiper-popular-pagination',
-							}}
-						>
-							{popularProperties.map((property: Property) => {
-								return (
-									<SwiperSlide key={property._id} className={'popular-property-slide'}>
-										<PopularPropertyCard property={property} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
+						{popularProperties.map((property: Property) => {
+							return <PopularPropertyCard property={property} />;
+						})}
 					</Stack>
-					<Stack className={'pagination-box'}>
-						<WestIcon className={'swiper-popular-prev'} />
-						<div className={'swiper-popular-pagination'}></div>
-						<EastIcon className={'swiper-popular-next'} />
-					</Stack>
+					<Box component={'div'} className={'right'}>
+						<div className={'more-box'}>
+							<Link href={'/property'}>
+								<span>Show more</span>
+							</Link>
+						</div>
+					</Box>
 				</Stack>
 			</Stack>
 		);

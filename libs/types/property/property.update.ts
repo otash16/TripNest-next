@@ -8,14 +8,14 @@ export interface PropertyUpdate {
 	propertyAddress?: string;
 	propertyTitle?: string;
 	propertyPrice?: number;
-	propertySquare?: number;
+	propertyGuests?: number;
 	propertyBeds?: number;
-	propertyRooms?: number;
+	propertyBath?: number;
 	propertyImages?: string[];
 	propertyDesc?: string;
-	propertyBarter?: boolean;
-	propertyRent?: boolean;
-	soldAt?: Date;
+	propertyFamily?: boolean;
+	propertySeasonal?: boolean;
+	reservedAt?: Date;
 	deletedAt?: Date;
 	constructedAt?: Date;
 }
