@@ -314,18 +314,18 @@
 							height: 14px;
 						}
 						&.swiper-trend-properties-next {
-							margin-top: 50px;
+							// margin-top: 50px;
 							transform: rotate(180deg);
 						}
 					}
 					.card-wrapper {
 						width: 1174px;
-						height: 500px;
+						// height: 500px;
 						display: flex;
 						flex-direction: row;
 						.trend-properties-swiper {
 							width: 100%;
-							height: 400px;
+							// height: 400px;
 							display: flex;
 							flex-direction: row;
 							.trend-properties-slide {
@@ -342,13 +342,13 @@
 							flex-direction: column;
 							transition: transform 0.3s;
 							&:hover {
-								opacity: 1;
-								transform: scale(1.05);
+								// opacity: 1;
+								// transform: scale(1.05);
 							}
 							.card-img {
-								position: relative;
+								// position: relative;
 								width: 100%;
-								height: 203px;
+								height: 250px;
 								background-size: cover;
 								border-radius: 12px 12px 0px 0px;
 								cursor: pointer;

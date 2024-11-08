@@ -150,16 +150,18 @@ export const GET_PROPERTIES = gql`
 				propertyPrice
 				propertySquare
 				propertyBeds
-				propertyRooms
+				propertyBath
+				propertyGuests
 				propertyViews
 				propertyLikes
+				propertyComments
 				propertyRank
 				propertyImages
 				propertyDesc
-				propertyBarter
-				propertyRent
+				propertyFamily
+				propertySeasonal
 				memberId
-				soldAt
+				reservedAt
 				deletedAt
 				constructedAt
 				createdAt
@@ -175,16 +177,21 @@ export const GET_PROPERTIES = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberWarnings
-					memberBlocks
 					memberProperties
-					memberRank
+					memberArticles
+					memberFollowers
+					memberFollowings
 					memberPoints
 					memberLikes
 					memberViews
+					memberComments
+					memberRank
+					memberWarnings
+					memberBlocks
 					deletedAt
 					createdAt
 					updatedAt
+					accessToken
 				}
 				meLiked {
 					memberId

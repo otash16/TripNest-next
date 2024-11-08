@@ -9,11 +9,12 @@ export interface PropertyInput {
 	propertyPrice: number;
 	propertySquare: number;
 	propertyBeds: number;
-	propertyRooms: number;
+	propertyBath: number;
+	propertyGuests: number;
 	propertyImages: string[];
 	propertyDesc?: string;
-	propertyBarter?: boolean;
-	propertyRent?: boolean;
+	propertyFamily?: boolean;
+	propertySeasonal?: boolean;
 	memberId?: string;
 	constructedAt?: Date;
 }
@@ -22,12 +23,12 @@ interface PISearch {
 	memberId?: string;
 	locationList?: PropertyLocation[];
 	typeList?: PropertyType[];
-	roomsList?: Number[];
+	bathList?: Number[];
 	options?: string[];
 	bedsList?: Number[];
 	pricesRange?: Range;
 	periodsRange?: PeriodsRange;
-	squaresRange?: Range;
+	guestsRange?: Range;
 	text?: string;
 }
 
