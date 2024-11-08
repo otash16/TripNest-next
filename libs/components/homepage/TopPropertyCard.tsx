@@ -1,8 +1,140 @@
+// import React from 'react';
+// import { Stack, Box, Divider, Typography } from '@mui/material';
+// import IconButton from '@mui/material/IconButton';
+// import useDeviceDetect from '../../hooks/useDeviceDetect';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import { Property } from '../../types/property/property';
+// import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+// import { REACT_APP_API_URL } from '../../config';
+// import { useRouter } from 'next/router';
+// import { useReactiveVar } from '@apollo/client';
+// import { userVar } from '../../../apollo/store';
+
+// interface TopPropertyCardProps {
+// 	property: Property;
+// }
+
+// const TopPropertyCard = (props: TopPropertyCardProps) => {
+// 	const { property } = props;
+// 	const device = useDeviceDetect();
+// 	const router = useRouter();
+// 	const user = useReactiveVar(userVar);
+
+// 	/** HANDLERS **/
+
+// 	if (device === 'mobile') {
+// 		return (
+// 			<Stack className="top-card-box">
+// 				<Box
+// 					component={'div'}
+// 					className={'card-img'}
+// 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+// 				>
+// 					<div>${property?.propertyPrice}</div>
+// 				</Box>
+// 				<Box component={'div'} className={'info'}>
+// 					<strong className={'title'}>{property?.propertyTitle}</strong>
+// 					<p className={'desc'}>{property?.propertyAddress}</p>
+// 					<div className={'options'}>
+// 						<div>
+// 							<img src="/img/icons/bed.svg" alt="" />
+// 							<span>{property?.propertyBeds} bed</span>
+// 						</div>
+// 						<div>
+// 							<img src="/img/icons/room.svg" alt="" />
+// 							<span>{property?.propertyRooms} rooms</span>
+// 						</div>
+// 						<div>
+// 							<img src="/img/icons/expand.svg" alt="" />
+// 							<span>{property?.propertySquare} m2</span>
+// 						</div>
+// 					</div>
+// 					<Divider sx={{ mt: '15px', mb: '17px' }} />
+// 					<div className={'bott'}>
+// 						<p>
+// 							{' '}
+// 							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
+// 							{property.propertyBarter ? 'Barter' : ''}
+// 						</p>
+// 						<div className="view-like-box">
+// 							<IconButton color={'default'}>
+// 								<RemoveRedEyeIcon />
+// 							</IconButton>
+// 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
+// 							<IconButton color={'default'}>
+// 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+// 									<FavoriteIcon style={{ color: 'red' }} />
+// 								) : (
+// 									<FavoriteIcon />
+// 								)}
+// 							</IconButton>
+// 							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
+// 						</div>
+// 					</div>
+// 				</Box>
+// 			</Stack>
+// 		);
+// 	} else {
+// 		return (
+// 			<Stack className="top-card-box">
+// 				<Box
+// 					component={'div'}
+// 					className={'card-img'}
+// 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+// 				>
+// 					<div>${property?.propertyPrice}</div>
+// 				</Box>
+// 				<Box component={'div'} className={'info'}>
+// 					<strong className={'title'}>{property?.propertyTitle}</strong>
+// 					<p className={'desc'}>{property?.propertyAddress}</p>
+// 					<div className={'options'}>
+// 						<div>
+// 							<img src="/img/icons/bed.svg" alt="" />
+// 							<span>{property?.propertyBeds} bed</span>
+// 						</div>
+// 						<div>
+// 							<img src="/img/icons/room.svg" alt="" />
+// 							<span>{property?.propertyRooms} rooms</span>
+// 						</div>
+// 						<div>
+// 							<img src="/img/icons/expand.svg" alt="" />
+// 							<span>{property?.propertySquare} m2</span>
+// 						</div>
+// 					</div>
+// 					<Divider sx={{ mt: '15px', mb: '17px' }} />
+// 					<div className={'bott'}>
+// 						<p>
+// 							{' '}
+// 							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
+// 							{property.propertyBarter ? 'Barter' : ''}
+// 						</p>
+// 						<div className="view-like-box">
+// 							<IconButton color={'default'}>
+// 								<RemoveRedEyeIcon />
+// 							</IconButton>
+// 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
+// 							<IconButton color={'default'}>
+// 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+// 									<FavoriteIcon style={{ color: 'red' }} />
+// 								) : (
+// 									<FavoriteIcon />
+// 								)}
+// 							</IconButton>
+// 							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
+// 						</div>
+// 					</div>
+// 				</Box>
+// 			</Stack>
+// 		);
+// 	}
+// };
+
+// export default TopPropertyCard;
+
 import React from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Property } from '../../types/property/property';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { REACT_APP_API_URL } from '../../config';
@@ -21,7 +153,6 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
-
 	if (device === 'mobile') {
 		return (
 			<Stack className="top-card-box">
@@ -30,45 +161,45 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 				>
-					<div>${property?.propertyPrice}</div>
+					{property?.propertyRank && property?.propertyRank >= 50 ? (
+						<div className={'status'}>
+							<img src="/img/icons/electricity.svg" alt="" />
+							<span>top</span>
+						</div>
+					) : (
+						''
+					)}
+					<div className={'price'}>${property.propertyPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
-					<strong className={'title'}>{property?.propertyTitle}</strong>
-					<p className={'desc'}>{property?.propertyAddress}</p>
+					<strong className={'title'}>{property.propertyTitle}</strong>
+					<p className={'desc'}>{property.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
 							<span>{property?.propertyBeds} bed</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<img src="/img/icons/bath.svg" alt="" />
+							<span>{property?.propertyBath} baths</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<img src="/img/icons/guest.svg" alt="" />
+							<span>{property?.propertyGuests} m2</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>
 							{' '}
-							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
-							{property.propertyBarter ? 'Barter' : ''}
+							{property.propertyFamily ? 'Family' : ''} {property.propertyFamily && property.propertySeasonal && '/'}{' '}
+							{property.propertySeasonal ? 'Seasonal' : ''}
 						</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'}>
-								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon style={{ color: 'red' }} />
-								) : (
-									<FavoriteIcon />
-								)}
-							</IconButton>
-							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
 						</div>
 					</div>
 				</Box>
@@ -82,45 +213,42 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 				>
-					<div>${property?.propertyPrice}</div>
+					<div className={'status'}>
+						<img className={'star-icon'} src="/img/icons/star.svg" alt="" />
+					</div>
+
+					{/* <img className={'star-icon'} src="/img/icons/star.svg" alt="" /> */}
+					<div className={'price'}>${property.propertyPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
-					<strong className={'title'}>{property?.propertyTitle}</strong>
-					<p className={'desc'}>{property?.propertyAddress}</p>
+					<strong className={'title'}>{property.propertyTitle}</strong>
+					<p className={'desc'}>{property.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
 							<span>{property?.propertyBeds} bed</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<img src="/img/icons/bath.svg" alt="" />
+							<span>{property?.propertyBath} baths</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<img src="/img/icons/guests.svg" alt="" />
+							<span>{property?.propertyGuests} guests</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>
 							{' '}
-							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
-							{property.propertyBarter ? 'Barter' : ''}
+							{property.propertyFamily ? 'Family' : ''} {property.propertyFamily && property.propertySeasonal && '/'}{' '}
+							{property.propertySeasonal ? 'Seasonal' : ''}
 						</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'}>
-								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon style={{ color: 'red' }} />
-								) : (
-									<FavoriteIcon />
-								)}
-							</IconButton>
-							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
 						</div>
 					</div>
 				</Box>
@@ -128,5 +256,4 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 		);
 	}
 };
-
 export default TopPropertyCard;
