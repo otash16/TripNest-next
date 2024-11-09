@@ -767,10 +767,19 @@
 					.footer-box {
 						display: flex;
 						flex-direction: column;
-						.logo {
-							width: 128px;
-							height: 52px;
-							cursor: pointer;
+						.logo-box {
+							display: flex;
+							align-items: center;
+							img {
+								width: 60px;
+								height: 60px;
+								cursor: pointer;
+							}
+							.logo-text {
+								font-size: 24px;
+								color: #ffffff;
+								font-weight: bold;
+							}
 						}
 						span {
 							color: #bebdbd;

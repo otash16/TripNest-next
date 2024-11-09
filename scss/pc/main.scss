@@ -941,7 +941,7 @@ body::-webkit-scrollbar {
 		height: auto;
 		display: flex;
 		flex-direction: row;
-		background: #181a20;
+		background: hsl(215, 56%, 50%);
 		.footer-container {
 			width: 1300px;
 			height: auto;
@@ -958,10 +958,19 @@ body::-webkit-scrollbar {
 					.footer-box {
 						display: flex;
 						flex-direction: column;
-						.logo {
-							width: 128px;
-							height: 52px;
-							cursor: pointer;
+						.logo-box {
+							display: flex;
+							align-items: center;
+							img {
+								width: 60px;
+								height: 60px;
+								cursor: pointer;
+							}
+							.logo-text {
+								font-size: 24px;
+								color: #ffffff;
+								font-weight: bold;
+							}
 						}
 						span {
 							color: #bebdbd;
@@ -1016,7 +1025,7 @@ body::-webkit-scrollbar {
 							align-items: center;
 							box-sizing: border-box;
 							border-radius: 12px;
-							background: #212329;
+							background: #6582d9;
 							input {
 								margin-right: 10px;
 								width: 85%;
