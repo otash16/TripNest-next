@@ -126,7 +126,7 @@ const BoardArticles = (props: BoardArticlesProps) => {
 			<Stack className={'board-articles'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular properties</span>
+						<span>Most Read Articles</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						{boardArticles.map((article: BoardArticle) => {
@@ -146,8 +146,8 @@ const BoardArticles = (props: BoardArticlesProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular destinations</span>
-							<p>Popularity ranked by views</p>
+							<span>Most Read Articles</span>
+							<p>Stay updated with the most popular reads</p>
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
