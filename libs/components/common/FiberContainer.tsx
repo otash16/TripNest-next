@@ -46,17 +46,25 @@ function Pages() {
 
 export default function FiberContainer() {
 	return (
-		<div className="threeJSContainer" style={{ marginTop: '100px', width: '100%', height: '512px' }}>
-			<Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>
-				<Suspense fallback={null}>
-					<ScrollControls infinite horizontal damping={4} pages={4} distance={1}>
-						<Scroll>
-							<Pages />
-						</Scroll>
-					</ScrollControls>
-					<Preload />
-				</Suspense>
-			</Canvas>
+		// <div className="threeJSContainer" style={{ marginTop: '100px', width: '100%', height: '512px' }}>
+		// 	<Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>
+		// 		<Suspense fallback={null}>
+		// 			<ScrollControls infinite horizontal damping={4} pages={4} distance={1}>
+		// 				<Scroll>
+		// 					<Pages />
+		// 				</Scroll>
+		// 			</ScrollControls>
+		// 			<Preload />
+		// 		</Suspense>
+		// 	</Canvas>
+		// </div>
+		<div className="top-wrapper">
+			<h1 className="top-title">
+				Discover Seoul’s Ultimate Destinations <br /> for Your Next Getaway
+			</h1>
+			<h3 className="top-subtitle">
+				Uncover hidden gems and iconic spots in every part of Seoul, tailored for every traveler
+			</h3>
 		</div>
 	);
 }

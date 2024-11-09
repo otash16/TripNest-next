@@ -674,6 +674,31 @@ body::-webkit-scrollbar {
 		// 		}
 		// 	}
 		// }
+
+		.top-wrapper {
+			display: flex;
+			flex-direction: column;
+			// justify-content: center;
+			// align-items: center;
+			padding-top: 300px;
+			text-align: center;
+			color: #ffffff;
+			.top-title {
+				font-size: 60px;
+				line-height: 1.2;
+				text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+			}
+			.top-subtitle {
+				font-size: 30px;
+				line-height: 1.5;
+				font-weight: 300;
+				margin-top: 1rem; // Add spacing between title and subtitle
+				text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4);
+				max-width: 800px; // Limit width for better readability
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
 	}
 
 	.header-basic {
