@@ -80,7 +80,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					height={'300px'}
 				>
-					<div className={'price'}>${property.propertyPrice}</div>
+					<div className={'price'}>${property.propertyPrice} / night</div>
 					<div className="like-btn-wrapper">
 						<IconButton color={'default'}>
 							{property?.meLiked && property?.meLiked[0]?.myFavorite ? (

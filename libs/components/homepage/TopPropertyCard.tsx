@@ -218,7 +218,7 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					</div>
 
 					{/* <img className={'star-icon'} src="/img/icons/star.svg" alt="" /> */}
-					<div className={'price'}>${property.propertyPrice}</div>
+					<div className={'price'}>${property.propertyPrice} / night</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property.propertyTitle}</strong>
