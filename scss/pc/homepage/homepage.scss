@@ -1216,19 +1216,19 @@
 							cursor: pointer;
 							box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
 							border-radius: 50%;
-							background: #fff;
+							// background: #fff;
 						}
 
 						.icon-image .icon img {
 							position: absolute;
-							height: 95%;
-							width: 95%;
+							height: 100%;
+							width: 100%;
 							left: 50%;
 							top: 50%;
 							transform: translate(-50%, -50%);
 							object-fit: cover;
 							border-radius: 50%;
-							border: 3px solid #0396ff;
+							border: 3px solid #f97316;
 						}
 
 						.icon-image::before {
@@ -1331,12 +1331,12 @@
 
 						.content .details .job {
 							font-size: 17px;
-							color: #0396ff;
+							color: #f97316;
 							margin: -3px 0 5px 0;
 						}
 
 						.content .details a:hover {
-							color: #0396ff;
+							color: #f97316;
 						}
 
 						/* Additional fix for .last */
