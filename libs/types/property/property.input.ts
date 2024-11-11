@@ -7,7 +7,6 @@ export interface PropertyInput {
 	propertyAddress: string;
 	propertyTitle: string;
 	propertyPrice: number;
-	propertySquare: number;
 	propertyBeds: number;
 	propertyBath: number;
 	propertyGuests: number;
