@@ -28,11 +28,30 @@ const TopAgentCard = (props: TopAgentProps) => {
 		);
 	} else {
 		return (
-			<Stack className="top-agent-card">
-				<img src={agentImage} alt="" />
+			// <Stack className="top-agent-card">
+			// 	<img src={agentImage} alt="" />
 
-				<strong>{agent?.memberNick}</strong>
-				<span>{agent?.memberType}</span>
+			// 	<strong>{agent?.memberNick}</strong>
+			// 	<span>{agent?.memberType}</span>
+			// </Stack>
+
+			<Stack className="top-agent-card">
+				<div className="icon-image">
+					<div className="icon">
+						<img src={agentImage} alt={agent.memberNick} />
+					</div>
+					<div className="hover-image one">
+						<div className="img">
+							<img src={agentImage} alt={agent.memberNick} />
+						</div>
+						<div className="content">
+							<div className="details">
+								<div className="name">{agent.memberNick}</div>
+								<div className="job">{agent.memberType}</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</Stack>
 		);
 	}

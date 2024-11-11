@@ -8,6 +8,9 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import TopAgentCard from './TopAgentCard';
 import { Member } from '../../types/member/member';
 import { AgentsInquiry } from '../../types/member/member.input';
+import { useQuery } from '@apollo/client';
+import { GET_AGENTS } from '../../../apollo/user/query';
+import { T } from '../../types/common';
 
 interface TopAgentsProps {
 	initialInput: AgentsInquiry;
@@ -20,6 +23,22 @@ const TopAgents = (props: TopAgentsProps) => {
 	const [topAgents, setTopAgents] = useState<Member[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getAgents,
+		data: getAgentsData,
+		error: getAgentAgentsError,
+		refetch: getAgentsRefetch,
+	} = useQuery(GET_AGENTS, {
+		fetchPolicy: 'cache-and-network',
+		variables: { input: initialInput },
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setTopAgents(data?.getAgents?.list);
+		},
+	});
+
+	if (topAgents) console.log('topAgents: +++', topAgents);
+
 	/** HANDLERS **/
 
 	if (device === 'mobile') {
@@ -66,31 +85,10 @@ const TopAgents = (props: TopAgentsProps) => {
 						</Box>
 					</Stack>
 					<Stack className={'wrapper'}>
-						<Box component={'div'} className={'switch-btn swiper-agents-prev'}>
-							<ArrowBackIosNewIcon />
-						</Box>
 						<Box component={'div'} className={'card-wrapper'}>
-							<Swiper
-								className={'top-agents-swiper'}
-								slidesPerView={'auto'}
-								spaceBetween={29}
-								modules={[Autoplay, Navigation, Pagination]}
-								navigation={{
-									nextEl: '.swiper-agents-next',
-									prevEl: '.swiper-agents-prev',
-								}}
-							>
-								{topAgents.map((agent: Member) => {
-									return (
-										<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
-											<TopAgentCard agent={agent} key={agent?.memberNick} />
-										</SwiperSlide>
-									);
-								})}
-							</Swiper>
-						</Box>
-						<Box component={'div'} className={'switch-btn swiper-agents-next'}>
-							<ArrowBackIosNewIcon />
+							{topAgents.map((agent: Member) => {
+								return <TopAgentCard agent={agent} key={agent?.memberNick} />;
+							})}
 						</Box>
 					</Stack>
 				</Stack>
@@ -102,7 +100,7 @@ const TopAgents = (props: TopAgentsProps) => {
 TopAgents.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 10,
+		limit: 6,
 		sort: 'memberRank',
 		direction: 'DESC',
 		search: {},
