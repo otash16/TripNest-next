@@ -110,7 +110,18 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 			<div id="property-list-page" style={{ position: 'relative' }}>
 				<div className="container">
 					<Box component={'div'} className={'right'}>
-						<span>Sort by</span>
+						<div className={'sort-wrapper'}>
+							<Button className={'sort-btn'}>New</Button>
+							<Button className={'sort-btn'}> Expensive</Button>
+							<Button className={'sort-btn'}> Cheap</Button>
+						</div>
+						<div className={'input-wrapper'}>
+							<input className={'search-input'} type="search" placeholder="Find a destination..." />
+							<button className={'search-btn'} type="submit">
+								<img src="/img/icons//searchWhite.svg" alt="" />
+							</button>
+						</div>
+						{/* <span>Sort by</span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
 								{filterSortName}
@@ -141,13 +152,10 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									Highest Price
 								</MenuItem>
 							</Menu>
-						</div>
+						</div> */}
 					</Box>
+
 					<Stack className={'property-page'}>
-						<Stack className={'filter-config'}>
-							{/* @ts-ignore */}
-							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
-						</Stack>
 						<Stack className="main-config" mb={'76px'}>
 							<Stack className={'list-config'}>
 								{properties?.length === 0 ? (
@@ -197,9 +205,9 @@ PropertyList.defaultProps = {
 		sort: 'createdAt',
 		direction: 'DESC',
 		search: {
-			squaresRange: {
+			guestsRange: {
 				start: 0,
-				end: 500,
+				end: 10,
 			},
 			pricesRange: {
 				start: 0,

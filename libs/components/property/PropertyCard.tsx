@@ -47,9 +47,9 @@ const PropertyCard = (props: PropertyCardType) => {
 							<Typography>TOP</Typography>
 						</Box>
 					)}
-					<Box component={'div'} className={'price-box'}>
+					{/* <Box component={'div'} className={'price-box'}>
 						<Typography>${formatterStr(property?.propertyPrice)}</Typography>
-					</Box>
+					</Box> */}
 				</Stack>
 				<Stack className="bottom">
 					<Stack className="name-address">
@@ -77,7 +77,7 @@ const PropertyCard = (props: PropertyCardType) => {
 							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyBath} bath</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertyGuests} guests</Typography>
+							<img src="/img/icons/expand.svg" alt="" /> <Typography>up to {property.propertyGuests} guests</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>
