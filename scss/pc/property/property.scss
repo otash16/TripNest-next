@@ -317,15 +317,16 @@
 								}
 								.price-box {
 									position: absolute;
-									bottom: 20px;
-									left: 20px;
+									z-index: 1;
+									bottom: 170px;
+									right: 50px;
 									padding: 8px 15px;
 									align-items: center;
 									border-radius: 6px;
-									border: 1px solid rgba(255, 255, 255, 0.5);
-									background: #fff;
+									// border: 1px solid rgba(255, 255, 255, 0.5);
+									background: #4169e1;
 									p {
-										color: #181a20;
+										color: #ffffff;
 										font-family: $font;
 										font-size: 15px;
 										font-style: normal;
@@ -343,12 +344,6 @@
 								background: rgba(255, 255, 255, 0.95);
 								padding: 20px 16px 10px 16px;
 								border-radius: 15px 15px 15px 15px;
-								transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
-								&:hover {
-									transform: scale(1.05); /* Zooms in slightly */
-									// // color: #ffffff;
-									// filter: brightness(0.9);
-								}
 								.name-address {
 									width: 100%;
 									height: 48px;
@@ -393,6 +388,10 @@
 										flex-direction: row;
 										gap: 5px;
 										align-items: center;
+										img {
+											width: 24px;
+											height: 24px;
+										}
 										p {
 											color: #181a20;
 											font-family: $font;
@@ -454,6 +453,9 @@
 						height: 86px;
 						align-items: center;
 						gap: 20px;
+						margin-top: 30px;
+						margin-left: auto;
+						margin-right: auto;
 						.pagination-box {
 							width: 100%;
 							align-items: center;

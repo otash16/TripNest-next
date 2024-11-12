@@ -43,13 +43,12 @@ const PropertyCard = (props: PropertyCardType) => {
 					</Link>
 					{property && property?.propertyRank > 0 && (
 						<Box component={'div'} className={'top-badge'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<Typography>TOP</Typography>
+							<img src="/img/icons/star.svg" alt="" />
 						</Box>
 					)}
-					{/* <Box component={'div'} className={'price-box'}>
-						<Typography>${formatterStr(property?.propertyPrice)}</Typography>
-					</Box> */}
+					<Box component={'div'} className={'price-box'}>
+						<Typography>${formatterStr(property?.propertyPrice)} / night</Typography>
+					</Box>
 				</Stack>
 				<Stack className="bottom">
 					<Stack className="name-address">
@@ -77,7 +76,7 @@ const PropertyCard = (props: PropertyCardType) => {
 							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyBath} bath</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>up to {property.propertyGuests} guests</Typography>
+							<img src="/img/icons/guests.svg" alt="" /> <Typography>up to {property.propertyGuests} guests</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>
