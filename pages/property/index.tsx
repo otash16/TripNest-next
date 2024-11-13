@@ -121,6 +121,11 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 								<img src="/img/icons//searchWhite.svg" alt="" />
 							</button>
 						</div>
+						<div className="filter-wrapper">
+							<button className={'filter-btn'}>
+								<img className={'filter-icon'} src="/img/icons/filter.svg" alt="" />
+							</button>
+						</div>
 						{/* <span>Sort by</span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
@@ -154,6 +159,68 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 							</Menu>
 						</div> */}
 					</Box>
+					<div className="product-page-top">
+						<div className="top-btn-wrapper">
+							<button className={'top-btn'}>
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/parks.svg" alt="" />
+								<span className={'top-btn-txt'}>Parks</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/countryside.svg" alt="" />
+								<span className={'top-btn-txt'}>Countryside</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/hanoks.svg" alt="" />
+								<span className={'top-btn-txt'}>Hanok</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/lake.svg" alt="" />
+								<span className={'top-btn-txt'}>Lake</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/skiing.svg" alt="" />
+								<span className={'top-btn-txt'}>Skiing</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/farms.svg" alt="" />
+								<span className={'top-btn-txt'}>Farm</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/pool.svg" alt="" />
+								<span className={'top-btn-txt'}>Pool</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/camping.svg" alt="" />
+								<span className={'top-btn-txt'}>Camping</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/play.svg" alt="" />
+								<span className={'top-btn-txt'}>Play</span>
+							</button>
+						</div>
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/luxe.svg" alt="" />
+								<span className={'top-btn-txt'}>Luxe</span>
+							</button>
+						</div>
+					</div>
 
 					<Stack className={'property-page'}>
 						<Stack className="main-config" mb={'76px'}>

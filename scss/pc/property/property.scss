@@ -3,13 +3,48 @@
 		padding-bottom: 40px;
 		background: #f6f6f6;
 		.container {
+			flex-direction: column;
+			.product-page-top {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				padding-top: 130px;
+				.top-btn-wrapper {
+					.top-btn {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						background-color: #f6f6f6;
+						border: 0;
+						font-size: 16px;
+						font-weight: 500;
+						cursor: pointer;
+						&:hover {
+							color: #f97316;
+						}
+					}
+
+					.top-btn-icon {
+						width: 40px;
+						height: 40px;
+						&:hover {
+							color: #f97316;
+						}
+					}
+					.top-btn-txt {
+						margin-top: 8px;
+					}
+				}
+			}
 			.right {
 				position: absolute;
 				right: 0;
-				top: 3%;
+				top: 4%;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
+				justify-content: flex-start;
 				// justify-content: space-around;
 				z-index: 2;
 				// button {
@@ -27,7 +62,7 @@
 				.sort-wrapper {
 					margin-right: 90px;
 					.sort-btn {
-						min-width: 120px;
+						min-width: 110px;
 						height: 38.5px;
 						background-color: #f97316;
 						margin-right: 10px;
@@ -44,14 +79,14 @@
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					margin-right: 401px;
+					// margin-right: 401px;
 					.search-input {
 						width: 350px;
 						margin-right: 30px;
 						font-size: 16px;
 						// padding: 10px;
 						padding-left: 10px;
-						height: 38.5px;
+						height: 40px;
 						border-radius: 5px;
 						border: 1px solid #ffffff;
 						box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -75,13 +110,31 @@
 						}
 					}
 				}
+				.filter-wrapper {
+					width: 40px;
+					height: 40px;
+					margin-left: 391px;
+					.filter-btn {
+						background: #f6f6f6;
+						border: 0;
+						cursor: pointer;
+						.filter-icon {
+							width: 40px;
+							height: 40px;
+						}
+
+						.filter-icon:hover {
+							color: #f97316; /* Hover color for stroke */
+						}
+					}
+				}
 			}
 			.property-page {
 				position: relative;
 				width: 100%;
 				flex-direction: row;
 				gap: 25px;
-				padding-top: 96px;
+				padding-top: 60px;
 				.filter-config {
 					width: 339px;
 					height: auto;
