@@ -3,6 +3,7 @@
 		padding-bottom: 40px;
 		background: #f6f6f6;
 		.container {
+			position: relative;
 			flex-direction: column;
 			.product-page-top {
 				display: flex;
@@ -132,54 +133,112 @@
 			.property-page {
 				position: relative;
 				width: 100%;
-				flex-direction: row;
+				flex-direction: column;
 				gap: 25px;
 				padding-top: 60px;
 				.filter-config {
-					width: 339px;
-					height: auto;
+					// width: 339px;
+					// height: auto;
 					.filter-main {
-						width: 100%;
-						padding: 30px 24px;
+						display: none;
+						position: absolute;
+						z-index: 2;
+						left: 250px;
+						right: 250px;
+						top: 5px;
+						width: 800px;
+						padding: 15px 20px;
 						border-radius: 12px;
 						background: #fff;
 						box-shadow: 0 1px 4px 0 rgba(24, 26, 32, 0.07);
 						.find-your-home {
 							position: relative;
 							width: 100%;
-							gap: 10px;
-							.property-location {
-								gap: 10px;
-								height: 115px;
-								overflow: hidden;
-								transition: 1s;
-								&:hover {
-									height: 253px;
+							// gap: 10px;
+							display: flex;
+							.top-wrapper {
+								display: flex;
+								flex-direction: row;
+								align-items: center;
+								justify-content: space-between;
+								.cancel-btn {
+									width: 35px;
+									height: 35px;
+									background-color: #ffffff;
+									border: 0;
+									cursor: pointer;
+									.cancel-icon {
+										width: 35px;
+										height: 35px;
+									}
 								}
 							}
+
+							.property-location {
+								display: flex;
+								flex-direction: row;
+								justify-content: space-between;
+								flex-wrap: wrap;
+								gap: 10px;
+								// height: 115px;
+								// overflow: hidden;
+								// transition: 1s;
+								// &:hover {
+								// 	height: 253px;
+								// }
+							}
 							.title-main {
-								width: 100%;
+								// width: 100%;
 								height: 25px;
 								color: #181a20;
 								font-family: $font;
-								font-size: 15px;
+								font-size: 20px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
 							}
+
 							.title {
 								width: auto;
 								height: auto;
+								margin-bottom: 10px;
 								color: #181a20;
 								font-family: $font;
-								font-size: 14px;
+								font-size: 18px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
 							}
+							.option-wrapper {
+								display: flex;
+								flex-direction: row;
+								// justify-content: space-between;
+								.input-box {
+									position: relative;
+									// width: 100%;
+									width: 155px;
+									margin-top: 5px;
+									flex-direction: row;
+									align-items: center;
+								}
+							}
+							.property-type-wrapper {
+								display: flex;
+								flex-wrap: wrap;
+								justify-content: space-between;
+								.input-box {
+									position: relative;
+									// width: 100%;
+									width: 155px;
+									margin-top: 5px;
+									flex-direction: row;
+									align-items: center;
+								}
+							}
 							.input-box {
 								position: relative;
-								width: 100%;
+								// width: 100%;
+								width: 150px;
 								flex-direction: row;
 								align-items: center;
 								svg {
@@ -264,7 +323,7 @@
 								flex-direction: row;
 								button {
 									width: 100%;
-									color: #181a20;
+									// color: #181a20;
 									text-align: center;
 									font-family: $font;
 									font-size: 13px;
@@ -276,6 +335,7 @@
 							.square-year-input {
 								width: 100%;
 								gap: 10px;
+								// color: #f97316;
 								flex-direction: row;
 								align-items: center;
 								.central-divider {
@@ -301,6 +361,37 @@
 									font-style: normal;
 									font-weight: 400;
 									line-height: 26px;
+								}
+							}
+						}
+						.bottom {
+							margin-top: 20px;
+							.btns-wrapper {
+								display: flex;
+								align-items: center;
+								justify-content: space-around;
+								.reset-btn {
+									display: flex;
+									align-items: center;
+									justify-content: center;
+									width: 200px;
+									background-color: #e0e0e0;
+									span {
+										color: #555555;
+										font-size: 16px;
+										margin-right: 10px;
+									}
+								}
+								.search-btn {
+									// display: flex;
+									// align-items: center;
+									width: 200px;
+									background-color: #f97316;
+									span {
+										color: #ffffff;
+										font-size: 16px;
+										// margin-right: 10px;
+									}
 								}
 							}
 						}

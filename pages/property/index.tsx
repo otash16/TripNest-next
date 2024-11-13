@@ -109,6 +109,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		return (
 			<div id="property-list-page" style={{ position: 'relative' }}>
 				<div className="container">
+					{/* <Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} /> */}
 					<Box component={'div'} className={'right'}>
 						<div className={'sort-wrapper'}>
 							<Button className={'sort-btn'}>New</Button>
@@ -126,6 +127,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 								<img className={'filter-icon'} src="/img/icons/filter.svg" alt="" />
 							</button>
 						</div>
+
 						{/* <span>Sort by</span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
@@ -223,6 +225,10 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 					</div>
 
 					<Stack className={'property-page'}>
+						<Stack className={'filter-config'}>
+							{/* @ts-ignore */}
+							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
+						</Stack>
 						<Stack className="main-config" mb={'76px'}>
 							<Stack className={'list-config'}>
 								{properties?.length === 0 ? (

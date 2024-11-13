@@ -10,7 +10,7 @@ for (let i = 1970; i <= thisYear; i++) {
 	propertyYears.push(String(i));
 }
 
-export const propertySquare = [0, 25, 50, 75, 100, 125, 150, 200, 300, 500];
+export const propertyGuests = [0, 2, 4, 6, 8, 10, 15, 20, 30, 40, 50];
 
 export const Messages = {
 	error1: 'Something went wrong!',
