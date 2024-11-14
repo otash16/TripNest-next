@@ -55,18 +55,18 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<span>{property?.propertyBath} baths</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySquare} m2</span>
+							<span>{property?.propertyGuests} guests</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<div>
-							{property?.propertyRent ? <p>Rent</p> : <span>Rent</span>}
-							{property?.propertyBarter ? <p>Barter</p> : <span>Barter</span>}
+							{property?.propertyFamily ? <p>Family</p> : <span>Family</span>}
+							{property?.propertySeasonal ? <p>Seasona</p> : <span>Seasona</span>}
 						</div>
 						<div className="buttons-box">
 							<IconButton color={'default'}>

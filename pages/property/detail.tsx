@@ -362,6 +362,27 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 										</Stack>
 									</Stack>
 								</Stack>
+								<Stack className={'agent-config'}>
+									<img
+										className={'agent-img'}
+										src={
+											property?.memberData?.memberImage
+												? `${REACT_APP_API_URL}/${property?.memberData?.memberImage}`
+												: '/img/profile/defaultUser.svg'
+										}
+										alt=""
+									/>
+									<div className="agent-content">
+										<Link href={`/member?memberId=${property?.memberData?._id}`}>
+											<Typography className={'name'}>{property?.memberData?.memberNick}</Typography>
+										</Link>
+										<div className="agent-wrapper">
+											<p className="agent-type">{property?.memberData?.memberType}</p>
+											<p className="agent-quality"> - Superhost - </p>
+											<p className="agent-year">1 year hosting</p>
+										</div>
+									</div>
+								</Stack>
 								<Stack className={'prop-desc-config'}>
 									<Stack className={'top'}>
 										<Typography className={'title'}>Destination Description</Typography>
@@ -414,6 +435,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 										<img src={'/img/property/floorPlan.png'} alt={'image'} />
 									</Stack>
 								</Stack> */}
+
 								<Stack className={'address-config'}>
 									<Typography className={'title'}>Where you will be staying</Typography>
 									<Stack className={'map-box'}>

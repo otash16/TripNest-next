@@ -356,6 +356,44 @@
 							}
 						}
 					}
+					.agent-config {
+						width: 100%;
+						height: auto;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						padding-top: 24px;
+						padding-bottom: 24px;
+						border-top: 1px solid #c4c4c4;
+						border-bottom: 1px solid #c4c4c4;
+						.agent-img {
+							width: 52px;
+							height: 52px;
+							margin-right: 10px;
+							border-radius: 8px;
+						}
+						.agent-content {
+							display: flex;
+							flex-direction: column;
+							.name {
+								font-weight: 600;
+								font-size: 18px;
+							}
+							.agent-wrapper {
+								display: flex;
+								flex-direction: row;
+								align-items: center;
+								.agent-type {
+									font-weight: 500;
+									color: #f97316;
+								}
+								.agent-quality {
+									margin-right: 10px;
+									margin-left: 10px;
+								}
+							}
+						}
+					}
 					.prop-desc-config {
 						width: 100%;
 						height: auto;
