@@ -1,6 +1,6 @@
 import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Stack, Box, Typography } from '@mui/material';
+import { Stack, Box, Typography, Button } from '@mui/material';
 import Link from 'next/link';
 import { REACT_APP_API_URL } from '../../config';
 import IconButton from '@mui/material/IconButton';
@@ -18,60 +18,61 @@ const AgentCard = (props: AgentCardProps) => {
 	const { agent } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
+
+	// Define the image path logic
 	const imagePath: string = agent?.memberImage
-		? `${REACT_APP_API_URL}/${agent?.memberImage}`
+		? `${process.env.REACT_APP_API_URL}/${agent?.memberImage}`
 		: '/img/profile/defaultUser.svg';
 
+	// Mobile version rendering
 	if (device === 'mobile') {
-		return <div>AGENT CARD</div>;
+		return <div>AGENT CARD (Mobile View)</div>;
 	} else {
 		return (
 			<Stack className="agent-general-card">
-				<Link
-					href={{
-						pathname: '/agent/detail',
-						query: { agentId: agent?._id },
-					}}
-				>
-					<Box
-						component={'div'}
-						className={'agent-img'}
-						style={{
-							backgroundImage: `url(${imagePath})`,
-							backgroundSize: 'cover',
-							backgroundPosition: 'center',
-							backgroundRepeat: 'no-repeat',
+				<Stack className={'agent-card'}>
+					<Link
+						href={{
+							pathname: '/agent/detail',
+							query: { agentId: 'id' },
 						}}
 					>
-						<div>{agent?.memberProperties} properties</div>
-					</Box>
-				</Link>
-
-				<Stack className={'agent-desc'}>
-					<Box component={'div'} className={'agent-info'}>
-						<Link
-							href={{
-								pathname: '/agent/detail',
-								query: { agentId: 'id' },
-							}}
-						>
-							<strong>{agent?.memberFullName ?? agent?.memberNick}</strong>
-						</Link>
-						<span>Agent</span>
-					</Box>
+						<img className={'agent-img'} src={`${imagePath}`} alt="" />
+					</Link>
+					<Stack className={'agent-info'}>
+						<h2 className="agent-name">{agent?.memberFullName ?? agent?.memberNick}</h2>
+						<span className="agent-type">Agent</span>
+					</Stack>
+					<Stack className={'agent-stats'}>
+						<div className="stats-inner">
+							<p className="stats-txt">Followers</p>
+							<p className="stats-number">{agent?.memberFollowers || 0}</p>
+						</div>
+						<div className="stats-inner">
+							<p className="stats-txt">Properties</p>
+							<p className="stats-number">{agent?.memberProperties || 0}</p>
+						</div>
+						<div className="stats-inner">
+							<p className="stats-txt">Articles</p>
+							<p className="stats-number">{agent?.memberArticles || 0}</p>
+						</div>
+					</Stack>
 					<Box component={'div'} className={'buttons'}>
-						<IconButton color={'default'}>
-							<RemoveRedEyeIcon />
-						</IconButton>
-						<Typography className="view-cnt">{agent?.memberViews}</Typography>
-						<IconButton color={'default'}>
-							{agent?.meLiked && agent?.meLiked[0]?.myFavorite ? (
-								<FavoriteIcon color={'primary'} />
-							) : (
-								<FavoriteBorderIcon />
-							)}
-						</IconButton>
-						<Typography className="view-cnt">{agent?.memberLikes}</Typography>
+						<Button className={'follow-btn'}>Follow me</Button>
+						<div className="icons-wrapper">
+							<IconButton color={'default'}>
+								<RemoveRedEyeIcon />
+							</IconButton>
+							<Typography className="view-cnt">{agent?.memberViews}</Typography>
+							<IconButton color={'default'}>
+								{agent?.meLiked && agent?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon color={'primary'} />
+								) : (
+									<FavoriteBorderIcon />
+								)}
+							</IconButton>
+							<Typography className="view-cnt">{agent?.memberLikes}</Typography>
+						</div>
 					</Box>
 				</Stack>
 			</Stack>
