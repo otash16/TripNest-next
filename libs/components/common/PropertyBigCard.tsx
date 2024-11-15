@@ -36,12 +36,11 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages?.[0]})` }}
 				>
-					{property?.propertyRank && property?.propertyRank >= 50 && (
+					{/* {property?.propertyRank && property?.propertyRank >= 2 && (
 						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
+							<img src="/img/icons/star.svg" alt="" />
 						</div>
-					)}
+					)} */}
 
 					<div className={'price'}>${formatterStr(property?.propertyPrice)}</div>
 				</Box>
@@ -54,11 +53,11 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 							<span>{property?.propertyBeds} bed</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							<img src="/img/icons/bath.svg" alt="" />
 							<span>{property?.propertyBath} baths</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
+							<img src="/img/icons/guests.svg" alt="" />
 							<span>{property?.propertyGuests} guests</span>
 						</div>
 					</div>
@@ -66,7 +65,7 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 					<div className={'bott'}>
 						<div>
 							{property?.propertyFamily ? <p>Family</p> : <span>Family</span>}
-							{property?.propertySeasonal ? <p>Seasona</p> : <span>Seasona</span>}
+							{property?.propertySeasonal ? <p>Seasonal</p> : <span> Seasonal</span>}
 						</div>
 						<div className="buttons-box">
 							<IconButton color={'default'}>
