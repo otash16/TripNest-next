@@ -6,7 +6,7 @@ import PropertyBigCard from '../../libs/components/common/PropertyBigCard';
 import ReviewCard from '../../libs/components/agent/ReviewCard';
 import { Box, Button, Pagination, Stack, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import { useReactiveVar } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { Property } from '../../libs/types/property/property';
 import { Member } from '../../libs/types/member/member';
@@ -18,6 +18,11 @@ import { Comment } from '../../libs/types/comment/comment';
 import { CommentGroup } from '../../libs/enums/comment.enum';
 import { REACT_APP_API_URL } from '../../libs/config';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GET_BOARD_ARTICLES, GET_MEMBER, GET_PROPERTIES } from '../../apollo/user/query';
+import { T } from '../../libs/types/common';
+import { BoardArticle } from '../../libs/types/board-article/board-article';
+import { BoardArticlesInquiry } from '../../libs/types/board-article/board-article.input';
+import ArticleBigCard from '../../libs/components/common/ArticleBigCard';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -25,15 +30,18 @@ export const getStaticProps = async ({ locale }: any) => ({
 	},
 });
 
-const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) => {
+const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
-	const [mbId, setMbId] = useState<string | null>(null);
+	const [agentId, setAgentId] = useState<string | null>(null);
 	const [agent, setAgent] = useState<Member | null>(null);
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
 	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
+	const [agentArticles, setAgentArticles] = useState<BoardArticle[]>([]);
+	const [searchCommunity, setSearchCommunity] = useState<BoardArticlesInquiry>(initialArticle);
 	const [propertyTotal, setPropertyTotal] = useState<number>(0);
+	const [totalCount, setTotalCount] = useState<number>(0);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [agentComments, setAgentComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
@@ -42,17 +50,91 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		commentContent: '',
 		commentRefId: '',
 	});
+	const [activeSection, setActiveSection] = useState<'Properties' | 'Articles'>('Properties');
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getMemberLoading,
+		data: getMemberData,
+		error: getAgentMemberError,
+		refetch: getMemberRefetch,
+	} = useQuery(GET_MEMBER, {
+		fetchPolicy: 'network-only',
+		variables: { input: agentId },
+		skip: !agentId,
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setAgent(data?.getMember);
+			setSearchFilter({
+				...searchFilter,
+				search: {
+					memberId: data?.getMember?._id,
+				},
+			});
+			setCommentInquiry({
+				...commentInquiry,
+				search: {
+					commentRefId: data?.getMember?._id,
+				},
+			});
+			setInsertCommentData({
+				...insertCommentData,
+				commentRefId: data?.getMember?._id,
+			});
+			setSearchCommunity({
+				...searchCommunity,
+				search: {
+					memberId: data?.getMember?._id,
+				},
+			});
+		},
+	});
+
+	const {
+		loading: getBoardArticlesLoading,
+		data: getBoardArticlesData,
+		error: getBoardArticlesError,
+		refetch: getBoardArticlesRefetch,
+	} = useQuery(GET_BOARD_ARTICLES, {
+		fetchPolicy: 'cache-and-network',
+		variables: { input: searchCommunity },
+		skip: !searchCommunity.search.memberId,
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setAgentArticles(data?.getBoardArticles?.list);
+			setTotalCount(data?.getBoardArticles?.metaCounter[0]?.total);
+		},
+	});
+
+	const {
+		loading: getPropertiesLoading,
+		data: getPropertiesData,
+		error: getPropertiesError,
+		refetch: getPropertiesRefetch,
+	} = useQuery(GET_PROPERTIES, {
+		fetchPolicy: 'network-only',
+		variables: { input: searchFilter },
+		skip: !searchFilter.search.memberId,
+		notifyOnNetworkStatusChange: true,
+		onCompleted: (data: T) => {
+			setAgentProperties(data?.getProperties?.list);
+			setPropertyTotal(data?.getProperties?.metaCounter[0]?.total ?? 0);
+		},
+	});
+
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.agentId) setMbId(router.query.agentId as string);
+		if (router.query.agentId) setAgentId(router.query.agentId as string);
 	}, [router]);
 
 	useEffect(() => {}, [searchFilter]);
 	useEffect(() => {}, [commentInquiry]);
 
 	/** HANDLERS **/
+	const handleSectionSwitch = (section: 'Properties' | 'Articles') => {
+		setActiveSection(section);
+	};
+
 	const redirectToMemberPageHandler = async (memberId: string) => {
 		try {
 			if (memberId === user?._id) await router.push(`/mypage?memberId=${memberId}`);
@@ -65,6 +147,11 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const propertyPaginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
 		searchFilter.page = value;
 		setSearchFilter({ ...searchFilter });
+	};
+
+	const articlePaginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
+		searchCommunity.page = value;
+		setSearchCommunity({ ...searchCommunity });
 	};
 
 	const commentPaginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
@@ -85,50 +172,140 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		return (
 			<Stack className={'agent-detail-page'}>
 				<Stack className={'container'}>
-					<Stack className={'agent-info'}>
-						<img
-							src={agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'}
-							alt=""
-						/>
-						<Box component={'div'} className={'info'} onClick={() => redirectToMemberPageHandler(agent?._id as string)}>
-							<strong>{agent?.memberFullName ?? agent?.memberNick}</strong>
-							<div>
-								<img src="/img/icons/call.svg" alt="" />
-								<span>{agent?.memberPhone}</span>
+					<Stack className={'agent-wrapper'}>
+						<Stack className={'left'}>
+							<div
+								style={{
+									background: `url('/img/banner/header1.svg')`,
+									backgroundPosition: 'center',
+									backgroundSize: 'cover',
+									backgroundRepeat: 'no-repeat',
+								}}
+								className="img-wrapper"
+							>
+								<img
+									className={'agent-img'}
+									src={
+										agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'
+									}
+									alt=""
+								/>
+								<Stack className={'agent-info'}>
+									<h2 className="agent-name">{agent?.memberNick}</h2>
+									<p className="agent-type">Agent</p>
+									<p className="agent-phone">
+										<span>{agent?.memberPhone}</span>
+									</p>
+								</Stack>
 							</div>
-						</Box>
-					</Stack>
-					<Stack className={'agent-home-list'}>
-						<Stack className={'card-wrap'}>
-							{agentProperties.map((property: Property) => {
-								return (
-									<div className={'wrap-main'} key={property?._id}>
-										<PropertyBigCard property={property} key={property?._id} />
-									</div>
-								);
-							})}
-						</Stack>
-						<Stack className={'pagination'}>
-							{propertyTotal ? (
-								<>
-									<Stack className="pagination-box">
-										<Pagination
-											page={searchFilter.page}
-											count={Math.ceil(propertyTotal / searchFilter.limit) || 1}
-											onChange={propertyPaginationChangeHandler}
-											shape="circular"
-											color="primary"
-										/>
-									</Stack>
-									<span>
-										Total {propertyTotal} propert{propertyTotal > 1 ? 'ies' : 'y'} available
-									</span>
-								</>
-							) : (
-								<div className={'no-data'}>
-									<img src="/img/icons/icoAlert.svg" alt="" />
-									<p>No properties found!</p>
+
+							<Stack className={'agent-stats'}>
+								<div className="agent-stats-inner">
+									<p className="agent-stats-number">{agent?.memberFollowers}</p>
+									<p className="agent-stats-txt">Followers</p>
 								</div>
+								<div className="agent-stats-inner">
+									<p className="agent-stats-number">{agent?.memberFollowings}</p>
+									<p className="agent-stats-txt">Followings</p>
+								</div>
+								<div className="agent-stats-inner">
+									<p className="agent-stats-number">{agent?.memberLikes}</p>
+									<p className="agent-stats-txt">Likes</p>
+								</div>
+								<div className="agent-stats-inner">
+									<p className="agent-stats-number">{agent?.memberArticles}</p>
+									<p className="agent-stats-txt">Articles</p>
+								</div>
+							</Stack>
+							<Stack className={'agent-desc-wrapper'}>
+								<div className="agent-desc">{agent?.memberDesc ? agent?.memberDesc : 'No description yet'}</div>
+							</Stack>
+						</Stack>
+						<Stack className={'right'}>
+							<Stack className={'right-top'}>
+								<div className="buttons">
+									<Button
+										className={`right-top-btn ${activeSection === 'Properties' ? 'active' : ''}`}
+										onClick={() => handleSectionSwitch('Properties')}
+									>
+										Properties
+									</Button>
+									<Button
+										className={`right-top-btn ${activeSection === 'Articles' ? 'active' : ''}`}
+										onClick={() => handleSectionSwitch('Articles')}
+									>
+										Articles
+									</Button>
+								</div>
+								<Button className={'follow-btn'}>Follow</Button>
+							</Stack>
+							{activeSection === 'Properties' && (
+								<Stack className={'agent-properties'}>
+									{agentProperties.map((property: Property) => (
+										<div className={'wrap-main'} key={property?._id}>
+											<PropertyBigCard property={property} />
+										</div>
+									))}
+									{/* Pagination for Properties */}
+									<Stack className={'pagination'}>
+										{propertyTotal ? (
+											<>
+												<Stack className="pagination-box">
+													<Pagination
+														page={searchFilter.page}
+														count={Math.ceil(propertyTotal / searchFilter.limit) || 1}
+														onChange={propertyPaginationChangeHandler}
+														shape="circular"
+														color="primary"
+													/>
+												</Stack>
+												<span>
+													Total {propertyTotal} propert{propertyTotal > 1 ? 'ies' : 'y'} available
+												</span>
+											</>
+										) : (
+											<div className={'no-data'}>
+												<img src="/img/icons/icoAlert.svg" alt="" />
+												<p>No properties found!</p>
+											</div>
+										)}
+									</Stack>
+								</Stack>
+							)}
+							{activeSection === 'Articles' && (
+								<Stack className={'agent-articles'}>
+									{agentArticles.map((article: BoardArticle) => {
+										return (
+											<div className={'wrap-main'} key={article?._id}>
+												<ArticleBigCard article={article} key={article?._id} />
+											</div>
+										);
+									})}
+									<Stack className={'pagination'}>
+										{propertyTotal ? (
+											<>
+												<Stack className="pagination-box">
+													<Pagination
+														page={searchFilter.page}
+														count={Math.ceil(propertyTotal / searchFilter.limit) || 1}
+														onChange={propertyPaginationChangeHandler}
+														shape="circular"
+														color="primary"
+													/>
+												</Stack>
+												<span>
+													Total {propertyTotal} propert{propertyTotal > 1 ? 'ies' : 'y'} available
+												</span>
+											</>
+										) : (
+											<div className={'no-data'}>
+												<img src="/img/icons/icoAlert.svg" alt="" />
+												<p>No properties found!</p>
+											</div>
+										)}
+									</Stack>
+									{/* Pagination for Articles */}
+								</Stack>
 							)}
 						</Stack>
 					</Stack>
@@ -202,7 +379,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 AgentDetail.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 9,
+		limit: 8,
 		search: {
 			memberId: '',
 		},
@@ -214,6 +391,13 @@ AgentDetail.defaultProps = {
 		direction: 'ASC',
 		search: {
 			commentRefId: '',
+		},
+	},
+	initialArticle: {
+		page: 1,
+		limit: 8,
+		search: {
+			memberId: '',
 		},
 	},
 };
