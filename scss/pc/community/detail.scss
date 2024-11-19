@@ -16,7 +16,7 @@
 					padding: 30px 15px 57px 21px;
 					margin-top: 100px;
 					border-radius: 12px;
-					border: 1px solid rgba(196, 196, 196, 0.79);
+					border: 1px solid #f97316;
 					background: #fff;
 					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 					.image-info {
@@ -48,7 +48,7 @@
 						justify-content: center;
 						align-items: center;
 						border-radius: 6px;
-						border: 1px solid #181a20;
+						border: 1px solid #f97316;
 						margin-bottom: 10px;
 						color: #181a20;
 						font-family: $font;
@@ -64,7 +64,7 @@
 						padding: 0;
 						justify-content: center;
 						align-items: center;
-						background-color: #000000;
+						background-color: #f97316;
 						color: #ffffff;
 						border-radius: 6px;
 						margin-bottom: 10px;
@@ -110,7 +110,7 @@
 							width: 91px;
 							height: 32px;
 							border-radius: 4px;
-							background: #eb6753;
+							background: #f97316;
 							color: #fff;
 							font-family: $font;
 							font-size: 13px;
@@ -154,6 +154,7 @@
 											width: 30.023px;
 											height: 30px;
 											cursor: pointer;
+											border-radius: 50%;
 										}
 										.member-nick {
 											color: #000;
@@ -234,7 +235,7 @@
 										gap: 5px;
 										border-radius: 2px;
 										border: 1px solid #eee;
-										background: #eb6753;
+										background: #f97316;
 										p {
 											color: #fff;
 											font-family: $font;
@@ -303,7 +304,7 @@
 										width: 100.077px;
 										height: 100%;
 										border-radius: 0;
-										background: #eb6753;
+										background: #f97316;
 										color: #fff;
 										font-family: $font;
 										font-size: 14px;
@@ -326,8 +327,8 @@
 								align-items: center;
 								justify-content: center;
 								padding: 16px 15px;
-								border-bottom: 2px solid #eb6753;
-								color: #eb6753;
+								border-bottom: 2px solid #f97316;
+								color: #f97316;
 								font-family: $font;
 								font-size: 14px;
 								font-style: normal;
