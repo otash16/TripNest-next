@@ -11,6 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import CommentIcon from '@mui/icons-material/Comment';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 interface CommunityCardProps {
 	boardArticle: BoardArticle;
@@ -52,10 +54,10 @@ const CommunityCard = (props: CommunityCardProps) => {
 				className="community-general-card-config"
 				onClick={(e) => chooseArticleHandler(e, boardArticle)}
 			>
-				<Stack className="image-box">
+				{/* <Stack className="image-box">
 					<img src={imagePath} alt="" className="card-img" />
-				</Stack>
-				<Stack className="desc-box" sx={{ marginTop: '-20px' }}>
+				</Stack> */}
+				{/* <Stack className="desc-box" sx={{ marginTop: '-20px' }}>
 					<Stack>
 						<Typography
 							className="desc"
@@ -82,14 +84,78 @@ const CommunityCard = (props: CommunityCardProps) => {
 						</IconButton>
 						<Typography className="view-cnt">{boardArticle?.articleLikes}</Typography>
 					</Stack>
-				</Stack>
-				<Stack className="date-box">
+				</Stack> */}
+				{/* <Stack className="date-box">
 					<Moment className="month" format={'MMMM'}>
 						{boardArticle?.createdAt}
 					</Moment>
 					<Typography className="day">
 						<Moment format={'DD'}>{boardArticle?.createdAt}</Moment>
 					</Typography>
+				</Stack> */}
+				<Stack className={'card-wrapper'}>
+					<Stack className={'left'}>
+						<img className={'card-img'} src={imagePath} alt="" />
+						<Stack className={'bottom'}>
+							<Stack className="date-box">
+								<h5 className="day">
+									<Moment format={'DD'}>{boardArticle?.createdAt}</Moment>
+								</h5>
+								<h6 className="yes">
+									<Moment className="month" format={'MMMM'}>
+										{boardArticle?.createdAt}
+									</Moment>
+								</h6>
+							</Stack>
+							<Stack className={'buttons'}>
+								<IconButton color={'default'}>
+									{boardArticle?.meLiked && boardArticle?.meLiked[0]?.myFavorite ? (
+										<FavoriteIcon color={'primary'} />
+									) : (
+										<FavoriteBorderIcon />
+									)}
+								</IconButton>
+								<Typography className="view-cnt">{boardArticle?.articleLikes}</Typography>
+								<IconButton color={'default'}>
+									<CommentIcon />
+								</IconButton>
+								<Typography className="view-cnt">{boardArticle?.articleComments}</Typography>
+								<IconButton color={'default'}>
+									<RemoveRedEyeIcon />
+								</IconButton>
+								<Typography className="view-cnt">{boardArticle?.articleViews}</Typography>
+							</Stack>
+						</Stack>
+					</Stack>
+					<Stack className={'right'}>
+						<Typography className="title">{boardArticle?.articleTitle}</Typography>
+						<Stack
+							className="writer-wrapper"
+							onClick={(e) => {
+								e.stopPropagation();
+								goMemberPage(boardArticle?.memberData?._id as string);
+							}}
+						>
+							<img
+								className={'write-img'}
+								src={
+									boardArticle?.memberData?.memberImage
+										? `${REACT_APP_API_URL}/${boardArticle?.memberData?.memberImage}`
+										: '/img/profile/defaultUser.svg'
+								}
+								alt="Writer's profile"
+							/>
+							<p className="writer-name">{boardArticle?.memberData?.memberNick}</p>
+						</Stack>
+						<Stack className={'article-content'}>
+							<p className="article-desc">{boardArticle?.articleContent}</p>
+						</Stack>
+						<div className="arrow-wrapper" onClick={(e) => chooseArticleHandler(e, boardArticle)}>
+							<IconButton color={'default'}>
+								<ArrowForwardIcon style={{ width: '40px', height: '40px', color: 'white' }} />
+							</IconButton>
+						</div>
+					</Stack>
 				</Stack>
 			</Stack>
 		);
