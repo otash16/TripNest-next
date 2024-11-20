@@ -228,15 +228,18 @@ export const GET_AGENT_PROPERTIES = gql`
 				propertyPrice
 				propertySquare
 				propertyBeds
-				propertyRooms
+				propertyBath
+				propertyGuests
 				propertyViews
 				propertyLikes
+				propertyComments
+				propertyRank
 				propertyImages
 				propertyDesc
-				propertyBarter
-				propertyRent
+				propertyFamily
+				propertySeasonal
 				memberId
-				soldAt
+				reservedAt
 				deletedAt
 				constructedAt
 				createdAt
@@ -262,17 +265,18 @@ export const GET_FAVORITES = gql`
 				propertyPrice
 				propertySquare
 				propertyBeds
-				propertyRooms
+				propertyBath
+				propertyGuests
 				propertyViews
 				propertyLikes
 				propertyComments
 				propertyRank
 				propertyImages
 				propertyDesc
-				propertyBarter
-				propertyRent
+				propertyFamily
+				propertySeasonal
 				memberId
-				soldAt
+				reservedAt
 				deletedAt
 				constructedAt
 				createdAt

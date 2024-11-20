@@ -62,7 +62,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 					<Typography className="name">{property.propertyTitle}</Typography>
 					<Typography className="address">{property.propertyAddress}</Typography>
 					<Typography className="price">
-						<strong>${formatterStr(property?.propertyPrice)}</strong>/ mo
+						<strong>${formatterStr(property?.propertyPrice)}</strong> / night
 					</Typography>
 				</Stack>
 				<Stack className="date-box">
@@ -77,7 +77,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 						</Typography>
 					</Stack>
 				</Stack>
-				{!memberPage && property.propertyStatus !== 'SOLD' && (
+				{!memberPage && property.propertyStatus !== 'RESERVED' && (
 					<Menu
 						anchorEl={anchorEl}
 						open={open}
@@ -104,10 +104,10 @@ export const PropertyCard = (props: PropertyCardProps) => {
 									disableRipple
 									onClick={() => {
 										handleClose();
-										updatePropertyHandler(PropertyStatus.SOLD, property?._id);
+										updatePropertyHandler(PropertyStatus.RESERVED, property?._id);
 									}}
 								>
-									Sold
+									Reserved
 								</MenuItem>
 							</>
 						)}

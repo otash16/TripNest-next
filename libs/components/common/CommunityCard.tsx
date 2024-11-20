@@ -17,6 +17,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 interface CommunityCardProps {
 	boardArticle: BoardArticle;
 	size?: string;
+	likeArticleHandler: any;
 }
 
 const CommunityCard = (props: CommunityCardProps) => {

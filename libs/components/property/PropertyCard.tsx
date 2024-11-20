@@ -41,9 +41,9 @@ const PropertyCard = (props: PropertyCardType) => {
 					>
 						<img src={imagePath} alt="" />
 					</Link>
-					{property && property?.propertyRank > 0 && (
+					{property && property?.propertyRank > -1 && (
 						<Box component={'div'} className={'top-badge'}>
-							<img src="/img/icons/star.svg" alt="" />
+							<img style={{ width: '28px', height: '28px' }} src="/img/icons/star.svg" alt="" />
 						</Box>
 					)}
 					<Box component={'div'} className={'price-box'}>
@@ -73,7 +73,8 @@ const PropertyCard = (props: PropertyCardType) => {
 							<img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyBath} bath</Typography>
+							<img style={{ width: '18px', height: '18px' }} src="/img/icons/bath.svg" alt="" />{' '}
+							<Typography>{property.propertyBath} bath</Typography>
 						</Stack>
 						<Stack className="option">
 							<img src="/img/icons/guests.svg" alt="" /> <Typography>up to {property.propertyGuests} guests</Typography>
