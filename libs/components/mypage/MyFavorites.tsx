@@ -8,6 +8,8 @@ import { T } from '../../types/common';
 import { useMutation, useQuery } from '@apollo/client';
 import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
 import { GET_FAVORITES } from '../../../apollo/user/query';
+import { Messages } from '../../config';
+import { sweetMixinErrorAlert } from '../../sweetAlert';
 
 const MyFavorites: NextPage = () => {
 	const device = useDeviceDetect();
@@ -38,6 +40,24 @@ const MyFavorites: NextPage = () => {
 		setSearchFavorites({ ...searchFavorites, page: value });
 	};
 
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2);
+
+			// execute likePropertyHandler mutation
+			await likeTargetProperty({
+				variables: { input: id },
+			});
+
+			// execute getPropertiesRefetch
+			getFavoritesRefetch({ input: searchFavorites });
+		} catch (err: any) {
+			console.log('ERROR, likePropertyHandler:', err);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
+
 	if (device === 'mobile') {
 		return <div>NESTAR MY FAVORITES MOBILE</div>;
 	} else {
@@ -52,7 +72,7 @@ const MyFavorites: NextPage = () => {
 				<Stack className="favorites-list-box">
 					{myFavorites?.length ? (
 						myFavorites?.map((property: Property) => {
-							return <PropertyCard property={property} myFavorites={true} />;
+							return <PropertyCard property={property} likePropertyHandler={likePropertyHandler} myFavorites={true} />;
 						})
 					) : (
 						<div className={'no-data'}>
