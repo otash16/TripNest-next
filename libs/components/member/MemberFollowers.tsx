@@ -74,11 +74,6 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 					</Stack>
 				</Stack>
 				<Stack className="follows-list-box">
-					<Stack className="listing-title-box">
-						<Typography className="title-text">Name</Typography>
-						<Typography className="title-text">Details</Typography>
-						<Typography className="title-text">Subscription</Typography>
-					</Stack>
 					{memberFollowers?.length === 0 && (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
@@ -102,16 +97,16 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 								<Stack className={'details-box'}>
 									<Box className={'info-box'} component={'div'}>
 										<p>Followers</p>
-										<span>({follower?.followerData?.memberFollowers})</span>
+										<span>{follower?.followerData?.memberFollowers}</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
 										<p>Followings</p>
-										<span>({follower?.followerData?.memberFollowings})</span>
+										<span>{follower?.followerData?.memberFollowings}</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
 										{follower?.meLiked && follower?.meLiked[0]?.myFavorite ? (
 											<FavoriteIcon
-												color="primary"
+												color="secondary"
 												onClick={() =>
 													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
 												}
@@ -123,7 +118,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 												}
 											/>
 										)}
-										<span>({follower?.followerData?.memberLikes})</span>
+										<span>{follower?.followerData?.memberLikes}</span>
 									</Box>
 								</Stack>
 								{user?._id !== follower?.followerId && (
@@ -145,7 +140,9 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 											<Button
 												variant="contained"
 												sx={{ background: '#60eb60d4', ':hover': { background: '#60eb60d4' } }}
-												onClick={() => subscribeHandler(follower?.followerData?._id, null, followInquiry)}
+												onClick={() =>
+													subscribeHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+												}
 											>
 												Follow
 											</Button>
@@ -180,7 +177,7 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 MemberFollowers.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 5,
+		limit: 6,
 		search: {
 			followingId: '',
 		},

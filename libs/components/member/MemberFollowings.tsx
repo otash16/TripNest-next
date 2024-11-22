@@ -75,11 +75,6 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 					</Stack>
 				</Stack>
 				<Stack className="follows-list-box">
-					<Stack className="listing-title-box">
-						<Typography className="title-text">Name</Typography>
-						<Typography className="title-text">Details</Typography>
-						<Typography className="title-text">Subscription</Typography>
-					</Stack>
 					{memberFollowings?.length === 0 && (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
@@ -103,11 +98,11 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 								<Stack className={'details-box'}>
 									<Box className={'info-box'} component={'div'}>
 										<p>Followers</p>
-										<span>({follower?.followingData?.memberFollowers})</span>
+										<span>{follower?.followingData?.memberFollowers}</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
 										<p>Followings</p>
-										<span>({follower?.followingData?.memberFollowings})</span>
+										<span>{follower?.followingData?.memberFollowings}</span>
 									</Box>
 									<Box className={'info-box'} component={'div'}>
 										{follower?.meLiked && follower?.meLiked[0]?.myFavorite ? (
@@ -124,7 +119,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 												}
 											/>
 										)}
-										<span>({follower?.followingData?.memberLikes})</span>
+										<span>{follower?.followingData?.memberLikes}</span>
 									</Box>
 								</Stack>
 								{user?._id !== follower?.followingId && (
@@ -183,7 +178,7 @@ const MemberFollowings = (props: MemberFollowingsProps) => {
 MemberFollowings.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 5,
+		limit: 6,
 		search: {
 			followerId: '',
 		},
