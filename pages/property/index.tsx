@@ -109,58 +109,53 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		return (
 			<div id="property-list-page" style={{ position: 'relative' }}>
 				<div className="container">
-					{/* <Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} /> */}
-					<Box component={'div'} className={'right'}>
-						<div className={'sort-wrapper'}>
-							<Button className={'sort-btn'}>New</Button>
-							<Button className={'sort-btn'}> Expensive</Button>
-							<Button className={'sort-btn'}> Cheap</Button>
-						</div>
-						<div className={'input-wrapper'}>
+					<Stack component={'div'} className={'right'}>
+						<Box component={'div'} className={'sort'}>
+							<span>Sort by</span>
+							<div>
+								<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
+									{filterSortName}
+								</Button>
+								<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
+									<MenuItem
+										onClick={sortingHandler}
+										id={'new'}
+										disableRipple
+										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									>
+										New
+									</MenuItem>
+									<MenuItem
+										onClick={sortingHandler}
+										id={'lowest'}
+										disableRipple
+										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									>
+										Lowest Price
+									</MenuItem>
+									<MenuItem
+										onClick={sortingHandler}
+										id={'highest'}
+										disableRipple
+										sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									>
+										Highest Price
+									</MenuItem>
+								</Menu>
+							</div>
+						</Box>
+						<Box component={'div'} className={'input-wrapper'}>
 							<input className={'search-input'} type="search" placeholder="Find a destination..." />
 							<button className={'search-btn'} type="submit">
 								<img src="/img/icons//searchWhite.svg" alt="" />
 							</button>
-						</div>
-						<div className="filter-wrapper">
+						</Box>
+						<Box component={'div'} className="filter-wrapper">
 							<button className={'filter-btn'}>
 								<img className={'filter-icon'} src="/img/icons/filter.svg" alt="" />
 							</button>
-						</div>
-
-						{/* <span>Sort by</span>
-						<div>
-							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
-								{filterSortName}
-							</Button>
-							<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
-								<MenuItem
-									onClick={sortingHandler}
-									id={'new'}
-									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-								>
-									New
-								</MenuItem>
-								<MenuItem
-									onClick={sortingHandler}
-									id={'lowest'}
-									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-								>
-									Lowest Price
-								</MenuItem>
-								<MenuItem
-									onClick={sortingHandler}
-									id={'highest'}
-									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
-								>
-									Highest Price
-								</MenuItem>
-							</Menu>
-						</div> */}
-					</Box>
+						</Box>
+					</Stack>
 					<div className="product-page-top">
 						<div className="top-btn-wrapper">
 							<button className={'top-btn'}>
