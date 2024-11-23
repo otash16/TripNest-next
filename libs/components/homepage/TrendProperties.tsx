@@ -172,7 +172,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 												<Typography className="view-cnt">{trendProperties[currentIndex]?.propertyViews}</Typography>
 												<IconButton
 													color={'default'}
-													onClick={() => likePropertyHandler(user, trendProperties[currentIndex]._id)}
+													// onClick={() => likePropertyHandler(user, trendProperties[currentIndex]._id)}
 												>
 													{trendProperties[currentIndex]?.meLiked?.[0]?.myFavorite ? (
 														<FavoriteIcon style={{ color: 'red' }} />
@@ -185,10 +185,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 										</div>
 										<div className="content">
 											<div className="name">{trendProperties[currentIndex]?.propertyTitle}</div>
-											<div className="des">
-												{trendProperties[currentIndex]?.propertyDesc} dgdggdgd hshshhs shshhshsh shshhshs shshshshs
-												ssshshh shshhshhs shshshs shsssh shshhshs shshshshs ssshshh shshhshhs shshshs shsssh
-											</div>
+											<div className="des">{trendProperties[currentIndex]?.propertyDesc}</div>
 											<button
 												onClick={() => {
 													pushDetailhandler(trendProperties[currentIndex]?._id);
