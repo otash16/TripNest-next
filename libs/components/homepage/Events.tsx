@@ -8,48 +8,20 @@ import property from '../../../pages/property';
 import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
+import { useRouter } from 'next/router';
 
-// interface EventData {
-// 	eventTitle: string;
-// 	city: string;
-// 	description: string;
-// 	imageSrc: string;
-// }
-// const eventsData: EventData[] = [
-// 	{
-// 		eventTitle: 'Paradise City Theme Park',
-// 		city: 'Incheon',
-// 		description:
-// 			'Experience magic and wonder in Incheon with a visit to the night-themed indoor theme park Wonderbox at Paradise City!',
-// 		imageSrc: '/img/events/INCHEON.webp',
-// 	},
-// 	{
-// 		eventTitle: 'Taebaeksan Snow Festival',
-// 		city: 'Seoul',
-// 		description: 'If you have the opportunity to travel to South Korea, do not miss the Taebaeksan Snow Festival!',
-// 		imageSrc: '/img/events/SEOUL.webp',
-// 	},
-// 	{
-// 		eventTitle: 'Suseong Lake Event',
-// 		city: 'Daegu',
-// 		description: 'The Suseong Lake Festival is a culture and arts festival held alongside Suseongmot Lake!',
-// 		imageSrc: '/img/events/DAEGU.webp',
-// 	},
-// 	{
-// 		eventTitle: 'Sand Festival',
-// 		city: 'Busan',
-// 		description:
-// 			'Haeundae Sand Festival, the nation’s largest eco-friendly exhibition on sand, is held at Haeundae Beach!',
-// 		imageSrc: '/img/events/BUSAN.webp',
-// 	},
-// ];
-
-interface SeaonalPropertiesProps {
+interface NewPropertiesProps {
 	initialInput: PropertiesInquiry;
 }
 
 const EventCard = ({ property }: { property: Property }) => {
 	const device = useDeviceDetect();
+	const router = useRouter();
+
+	const pushDetailhandler = async (propertyId: string) => {
+		console.log('ID;:', propertyId);
+		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
+	};
 
 	if (device === 'mobile') {
 		return <div>EVENT CARD</div>;
@@ -62,6 +34,9 @@ const EventCard = ({ property }: { property: Property }) => {
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',
 					backgroundRepeat: 'no-repeat',
+				}}
+				onClick={() => {
+					pushDetailhandler(property._id);
 				}}
 			>
 				<Box component={'div'} className={'info'}>
@@ -76,9 +51,9 @@ const EventCard = ({ property }: { property: Property }) => {
 	}
 };
 
-const SeasonalProperties = () => {
+const NewProperties = () => {
 	const device = useDeviceDetect();
-	const [seasonalProperties, setSeasonalProperties] = useState<Property[]>([]);
+	const [newProperties, setNewProperties] = useState<Property[]>([]);
 
 	const initialInput = {
 		page: 1,
@@ -98,7 +73,7 @@ const SeasonalProperties = () => {
 		variables: { input: initialInput },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setSeasonalProperties(data?.getProperties?.list);
+			setNewProperties(data?.getProperties?.list);
 		},
 	});
 
@@ -115,7 +90,7 @@ const SeasonalProperties = () => {
 						</Box>
 					</Stack>
 					<Stack className={'card-wrapper'}>
-						{seasonalProperties.map((property: Property) => {
+						{newProperties.map((property: Property) => {
 							return <EventCard property={property} key={property?.propertyTitle} />;
 						})}
 					</Stack>
@@ -125,4 +100,4 @@ const SeasonalProperties = () => {
 	}
 };
 
-export default SeasonalProperties;
+export default NewProperties;
