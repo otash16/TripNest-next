@@ -12,15 +12,20 @@ import { userVar } from '../../../apollo/store';
 
 interface PopularPropertyCardProps {
 	property: Property;
+	likePropertyHandler: any;
 }
 
 const PopularPropertyCard = (props: PopularPropertyCardProps) => {
-	const { property } = props;
+	const { property, likePropertyHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
+	const pushDetailhandler = async (propertyId: string) => {
+		console.log('ID;:', propertyId);
+		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
+	};
 
 	if (device === 'mobile') {
 		return (
@@ -44,20 +49,6 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{property.propertyTitle}</strong>
 					<p className={'desc'}>{property.propertyAddress}</p>
-					{/* <div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyBath} baths</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertyGuests} guests</span>
-						</div>
-					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>{property?.propertyFamily ? 'Family' : 'Seasonal'}</p>
@@ -79,10 +70,19 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
 					height={'300px'}
+					onClick={() => {
+						pushDetailhandler(property._id);
+					}}
 				>
 					<div className={'price'}>${property.propertyPrice} / night</div>
 					<div className="like-btn-wrapper">
-						<IconButton color={'default'}>
+						<IconButton
+							color={'default'}
+							onClick={(event) => {
+								event.stopPropagation();
+								likePropertyHandler(user, property?._id);
+							}}
+						>
 							{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
 								<FavoriteIcon style={{ color: 'red' }} />
 							) : (

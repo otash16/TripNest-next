@@ -161,13 +161,15 @@
 								top: 50%;
 								left: 50%;
 								transform: translate(-50%, -50%);
+								box-shadow: 0 30px 50px #d7d7d7;
 								border-radius: 20px;
-								box-shadow: 0 30px 50px #505050;
 								background-position: 50% 50%;
+								border: 0.2px solid #181a20;
 								background-size: cover;
 								display: inline-block;
 								transition: 0.5s;
 								background-color: transparent;
+								overflow: hidden;
 
 								&.active {
 									transform: translate(0, 0);
@@ -212,7 +214,7 @@
 									}
 
 									.des {
-										height: 72px;
+										max-height: 72px;
 										margin-top: 10px;
 										margin-bottom: 20px;
 										line-height: 1.5;

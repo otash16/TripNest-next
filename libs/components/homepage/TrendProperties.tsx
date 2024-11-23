@@ -167,7 +167,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 										<div className={'buttons'}>
 											<div className="view-like-box">
 												<IconButton color={'default'}>
-													<RemoveRedEyeIcon style={{ width: '35px', height: '35px' }} />
+													<RemoveRedEyeIcon style={{ width: '35px', height: '35px', pointerEvents: 'none' }} />
 												</IconButton>
 												<Typography className="view-cnt">{trendProperties[currentIndex]?.propertyViews}</Typography>
 												<IconButton
@@ -175,7 +175,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 													// onClick={() => likePropertyHandler(user, trendProperties[currentIndex]._id)}
 												>
 													{trendProperties[currentIndex]?.meLiked?.[0]?.myFavorite ? (
-														<FavoriteIcon style={{ color: 'red' }} />
+														<FavoriteIcon style={{ width: '35px', height: '35px', pointerEvents: 'none' }} />
 													) : (
 														<FavoriteIcon />
 													)}
