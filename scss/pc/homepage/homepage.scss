@@ -1019,10 +1019,7 @@
 					flex-direction: row;
 					margin-top: 10px;
 					transition: transform 0.3s, opacity 0.3s;
-					// &:hover {
-					// 	opacity: 1;
-					// 	transform: scale(1.05);
-					// }
+
 					.card-img {
 						position: relative;
 						width: 200px;
@@ -1035,57 +1032,6 @@
 							opacity: 1;
 							transform: scale(1.05);
 						}
-						// div.status {
-						// 	position: absolute;
-						// 	padding: 6px 34px;
-						// 	left: 20px;
-						// 	top: 20px;
-						// 	display: flex;
-						// 	align-items: center;
-						// 	border-radius: 6px;
-						// 	background: #eb6753;
-						// 	img {
-						// 		width: 14px;
-						// 		height: 14px;
-						// 	}
-						// 	span {
-						// 		margin-left: 5px;
-						// 		color: #fff;
-						// 		font-family: $font;
-						// 		font-size: 12px;
-						// 		font-style: normal;
-						// 		font-weight: 600;
-						// 		line-height: normal;
-						// 		text-transform: uppercase;
-						// 	}
-						// }
-						// div.price {
-						// 	position: absolute;
-						// 	padding: 8px 12px;
-						// 	left: 20px;
-						// 	bottom: 20px;
-						// 	border-radius: 6px;
-						// 	background: #f97316;
-						// 	color: #ffffff;
-						// 	font-family: $font;
-						// 	font-size: 15px;
-						// 	font-style: normal;
-						// 	font-weight: 600;
-						// 	line-height: normal;
-						// }
-						// div.like-btn-wrapper {
-						// 	position: absolute;
-						// 	right: 20px;
-						// 	top: 20px;
-						// 	border-radius: 6px;
-						// 	background: #ffffff;
-						// 	color: #ffffff;
-						// 	font-family: $font;
-						// 	font-size: 15px;
-						// 	font-style: normal;
-						// 	font-weight: 600;
-						// 	line-height: normal;
-						// }
 					}
 					.info {
 						width: 220px;
@@ -1125,29 +1071,6 @@
 							white-space: nowrap;
 						}
 
-						// .options {
-						// 	margin-top: 15px;
-						// 	display: flex;
-						// 	flex-direction: row;
-						// 	justify-content: space-between;
-						// 	div {
-						// 		display: flex;
-						// 		flex-direction: row;
-						// 		img {
-						// 			margin-right: 5px;
-						// 			width: 17px;
-						// 			height: 17px;
-						// 		}
-						// 		span {
-						// 			color: #181a20;
-						// 			font-family: $font;
-						// 			font-size: 13px;
-						// 			font-style: normal;
-						// 			font-weight: 400;
-						// 			line-height: normal;
-						// 		}
-						// 	}
-						// }
 						.bott {
 							display: flex;
 							flex-direction: row;
@@ -1187,23 +1110,6 @@
 					}
 				}
 			}
-			// .pagination-box {
-			// 	display: flex;
-			// 	flex-direction: row;
-			// 	justify-content: center;
-			// 	align-items: center;
-			// 	.swiper-pagination-bullet.swiper-pagination-bullet-active {
-			// 		background: #000000;
-			// 	}
-			// 	.swiper-popular-next {
-			// 		margin-left: 20px;
-			// 		cursor: pointer;
-			// 	}
-			// 	.swiper-popular-prev {
-			// 		margin-right: 20px;
-			// 		cursor: pointer;
-			// 	}
-			// }
 		}
 	}
 }

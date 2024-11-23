@@ -6,97 +6,16 @@ import CommunityCard from './CommunityCard';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { BoardArticlesInquiry } from '../../types/board-article/board-article.input';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
-
-// const CommunityBoards = () => {
-// 	const device = useDeviceDetect();
-// 	const [searchCommunity, setSearchCommunity] = useState({
-// 		page: 1,
-// 		sort: 'articleViews',
-// 		direction: 'DESC',
-// 	});
-// 	const [boardArticles, setBoardArticles] = useState<BoardArticle[]>([]);
-// 	const [freeArticles, setFreeArticles] = useState<BoardArticle[]>([]);
-// };
+import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
+import { Messages } from '../../config';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 
 interface BoardArticlesProps {
 	initialInput: BoardArticlesInquiry;
 }
-
-/** APOLLO REQUESTS **/
-// const {
-// 	loading: getArticlesLoading,
-// 	data: getArticlesData,
-// 	error: getArticlesError,
-// 	refetch: getArticlesRefetch,
-// } = useQuery(GET_ARTICLES, {
-// 	fetchPolicy: 'cache-and-network',
-// 	variables: { input: initialInput },
-// 	notifyOnNetworkStatusChange: true,
-// 	onCompleted: (data: T) => {
-// 		setBoardArticles(data?.getArticles?.list);
-// 	},
-// });
-
-/** APOLLO REQUESTS **/
-
-// if (!boardArticles) return null;
-
-// if (device === 'mobile') {
-// 	return (
-// 		<Stack className={'board-articles'}>
-// 			<Stack className={'container'}>
-// 				<Stack className={'info-box'}>
-// 					<span>Popular Articles</span>
-// 				</Stack>
-// 				<Stack className={'card-box'}>
-// 					{boardArticles.map((article: BoardArticle) => (
-// 						<SwiperSlide key={article._id} className={'board-article-slide'}>
-// 							<CommunityCard article={article} />
-// 						</SwiperSlide>
-// 					))}
-// 				</Stack>
-// 			</Stack>
-// 		</Stack>
-// 	);
-// } else {
-// 	return (
-// 		<Stack className={'board-articles'}>
-// 			<Stack className={'container'}>
-// 				<Stack className={'info-box'}>
-// 					<Box component={'div'} className={'left'}>
-// 						<span>Popular Articles</span>
-// 						<p>Trending articles selected by views</p>
-// 					</Box>
-// 				</Stack>
-// 				<Stack className={'card-box'}>
-// 					{boardArticles.map((article: BoardArticle) => (
-// 						<CommunityCard article={article} />
-// 					))}
-// 				</Stack>
-// 				<Box component={'div'} className={'right'}>
-// 					<div className={'more-box'}>
-// 						<Link href={'/articles'}>
-// 							<span>Show more</span>
-// 						</Link>
-// 					</div>
-// 				</Box>
-// 			</Stack>
-// 		</Stack>
-// 	);
-// }
-
-// BoardArticles.defaultProps = {
-// 	initialInput: {
-// 		page: 1,
-// 		limit: 7,
-// 		sort: 'articleViews',
-// 		direction: 'DESC',
-// 		search: {},
-// 	},
-// };
 
 const BoardArticles = (props: BoardArticlesProps) => {
 	const { initialInput } = props;
@@ -104,6 +23,8 @@ const BoardArticles = (props: BoardArticlesProps) => {
 	const [boardArticles, setBoardArticles] = useState<BoardArticle[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+
 	const {
 		loading: getArticles,
 		data: getArticlesData,
@@ -118,6 +39,26 @@ const BoardArticles = (props: BoardArticlesProps) => {
 		},
 	});
 	/** HANDLERS **/
+	const likeArticleHandler = async (e: any, user: T, id: string) => {
+		try {
+			e.stopPropagation();
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2);
+
+			// execute likePropertyHandler mutation
+			await likeTargetBoardArticle({
+				variables: { input: id },
+			});
+
+			// execute getPropertiesRefetch
+			getArticlesRefetch({ input: initialInput });
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR, likeArticleHandler:', err);
+			sweetMixinErrorAlert(err.message).then;
+		}
+	};
 
 	if (!boardArticles) return null;
 
@@ -132,7 +73,7 @@ const BoardArticles = (props: BoardArticlesProps) => {
 						{boardArticles.map((article: BoardArticle) => {
 							return (
 								<SwiperSlide key={article._id} className={'board-article-slide'}>
-									<CommunityCard article={article} />
+									<CommunityCard article={article} likeArticleHandler={likeArticleHandler} />
 								</SwiperSlide>
 							);
 						})}
@@ -152,16 +93,9 @@ const BoardArticles = (props: BoardArticlesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						{boardArticles.map((article: BoardArticle) => {
-							return <CommunityCard article={article} />;
+							return <CommunityCard article={article} likeArticleHandler={likeArticleHandler} />;
 						})}
 					</Stack>
-					{/* <Box component={'div'} className={'right'}>
-						<div className={'more-box'}>
-							<Link href={'/property'}>
-								<span>Show more</span>
-							</Link>
-						</div>
-					</Box> */}
 				</Stack>
 			</Stack>
 		);

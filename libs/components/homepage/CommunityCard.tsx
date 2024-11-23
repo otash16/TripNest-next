@@ -14,57 +14,20 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 interface CommunityCardProps {
 	article: BoardArticle;
+	likeArticleHandler: any;
 }
 
-// const CommunityCard = (props: CommunityCardProps) => {
-// 	const { vertical, article, index } = props;
-// 	const device = useDeviceDetect();
-// 	const articleImage = article?.articleImage
-// 		? `${process.env.REACT_APP_API_URL}/${article?.articleImage}`
-// 		: '/img/event.svg';
-
-// 	if (device === 'mobile') {
-// 		return <div>COMMUNITY CARD (MOBILE)</div>;
-// 	} else {
-// 		if (vertical) {
-// 			return (
-// 				<Link href={`/community/detail?articleCategory=${article?.articleCategory}&id=${article?._id}`}>
-// 					<Box component={'div'} className={'vertical-card'}>
-// 						<div className={'community-img'} style={{ backgroundImage: `url(${articleImage})` }}>
-// 							<div>{index + 1}</div>
-// 						</div>
-// 						<strong>{article?.articleTitle}</strong>
-// 						<span>Free Board</span>
-// 					</Box>
-// 				</Link>
-// 			);
-// 		} else {
-// 			return (
-// 				<>
-// 					<Link href={`/community/detail?articleCategory=${article?.articleCategory}&id=${article?._id}`}>
-// 						<Box component={'div'} className="horizontal-card">
-// 							<img src={articleImage} alt="" />
-// 							<div>
-// 								<strong>{article.articleTitle}</strong>
-// 								<span>
-// 									<Moment format="DD.MM.YY">{article?.createdAt}</Moment>
-// 								</span>
-// 							</div>
-// 						</Box>
-// 					</Link>
-// 				</>
-// 			);
-// 		}
-// 	}
-// };
-
 const CommunityCard = (props: CommunityCardProps) => {
-	const { article } = props;
+	const { article, likeArticleHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
+	const pushDetailhandler = async (articleId: string) => {
+		console.log('ID;:', articleId);
+		await router.push({ pathname: '/community/detail', query: { id: articleId } });
+	};
 
 	if (device === 'mobile') {
 		return (
@@ -73,9 +36,17 @@ const CommunityCard = (props: CommunityCardProps) => {
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${article?.articleImage[0]})` }}
+					onClick={() => {
+						pushDetailhandler(article._id);
+					}}
 				>
 					<div className="like-btn-wrapper">
-						<IconButton color={'default'}>
+						<IconButton
+							color={'default'}
+							onClick={(e: any) => {
+								likeArticleHandler(e, user, article?._id);
+							}}
+						>
 							{article?.meLiked && article?.meLiked[0]?.myFavorite ? (
 								<FavoriteIcon style={{ color: 'red' }} />
 							) : (
@@ -84,33 +55,16 @@ const CommunityCard = (props: CommunityCardProps) => {
 						</IconButton>
 					</div>
 				</Box>
-				<Box component={'div'} className={'info'}>
+				<Box
+					component={'div'}
+					className={'info'}
+					onClick={() => {
+						pushDetailhandler(article._id);
+					}}
+				>
 					<strong className={'title'}>{article.articleTitle}</strong>
 
-					{/* <div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyBath} baths</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertyGuests} guests</span>
-						</div>
-					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					{/* <div className={'bott'}>
-						<p>{property?.propertyFamily ? 'Family' : 'Seasonal'}</p>
-						<div className="view-like-box">
-							<IconButton color={'default'}>
-								<RemoveRedEyeIcon />
-							</IconButton>
-							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-						</div>
-					</div> */}
 				</Box>
 			</Stack>
 		);
@@ -121,26 +75,20 @@ const CommunityCard = (props: CommunityCardProps) => {
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${article?.articleImage})` }}
-					// style={{ backgroundImage: `url(img/banner/header.svg)` }}
-					// height={'300px'}
+					onClick={() => {
+						pushDetailhandler(article._id);
+					}}
 				></Box>
 				<Box component={'div'} className={'info'}>
-					<strong className={'title'}>{article.articleTitle}</strong>
+					<strong
+						className={'title'}
+						onClick={() => {
+							pushDetailhandler(article._id);
+						}}
+					>
+						{article.articleTitle}
+					</strong>
 					<p className={'desc'}>{article.articleContent ?? 'no content'}</p>
-					{/* <div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/bath.svg" alt="" />
-							<span>{property?.propertyBath} baths</span>
-						</div>
-						<div>
-							<img src="/img/icons/guests.svg" alt="" />
-							<span>{property?.propertyGuests} guests</span>
-						</div>
-					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<p>{article.articleCategory}</p>
@@ -149,7 +97,12 @@ const CommunityCard = (props: CommunityCardProps) => {
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{article?.articleViews}</Typography>
-							<IconButton color={'default'}>
+							<IconButton
+								color={'default'}
+								onClick={(e: any) => {
+									likeArticleHandler(e, user, article?._id);
+								}}
+							>
 								{article?.meLiked && article?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />
 								) : (
