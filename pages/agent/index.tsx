@@ -10,8 +10,11 @@ import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Member } from '../../libs/types/member/member';
 import { GET_AGENTS } from '../../apollo/user/query';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../libs/types/common';
+import { LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
+import { Message } from '../../libs/enums/common.enum';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -35,6 +38,8 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	const [searchText, setSearchText] = useState<string>('');
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
+
 	const {
 		loading: getAgentsLoading,
 		data: getAgentsData,
@@ -60,6 +65,12 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 
 		setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
 	}, [router]);
+
+	useEffect(() => {
+		// BECKEND REFETCH
+		console.log('searchFilter:', searchFilter);
+		// getPropertiesRefetch({ input: searchFilter }).then();
+	}, [searchFilter]);
 
 	/** HANDLERS **/
 	const sortingClickHandler = (e: MouseEvent<HTMLElement>) => {
@@ -101,6 +112,23 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 			scroll: false,
 		});
 		setCurrentPage(value);
+	};
+
+	const likeMemberHandler = async (user: any, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+			// execute likePropertyHandler mutation
+			await likeTargetMember({
+				variables: { input: id },
+			});
+			// execute getPropertiesRefetch
+			getAgentsRefetch({ input: searchFilter });
+			await sweetTopSmallSuccessAlert('seccess', 800);
+		} catch (err: any) {
+			console.log('ERROR, likeMemberHandler:', err);
+			sweetMixinErrorAlert(err.message).then;
+		}
 	};
 
 	if (device === 'mobile') {
@@ -157,7 +185,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							</div>
 						) : (
 							agents.map((agent: Member) => {
-								return <AgentCard agent={agent} key={agent._id} />;
+								return <AgentCard agent={agent} key={agent._id} likeMemberHandler={likeMemberHandler} />;
 							})
 						)}
 					</Stack>
