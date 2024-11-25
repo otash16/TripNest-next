@@ -42,46 +42,124 @@ const Filter = (props: FilterType) => {
 	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
 	const [searchText, setSearchText] = useState<string>('');
 	const [showMore, setShowMore] = useState<boolean>(false);
+	const [isFilterVisible, setIsFilterVisible] = useState(true);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		const queryParams = JSON.stringify({
-			...searchFilter,
-			search: {
-				...searchFilter.search,
-			},
-		});
-
 		if (searchFilter?.search?.locationList?.length == 0) {
 			delete searchFilter.search.locationList;
 			setShowMore(false);
-			router.push(`/property?input=${queryParams}`, `/property?input=${queryParams}`, { scroll: false }).then();
+			router
+				.push(
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
 		}
 
 		if (searchFilter?.search?.typeList?.length == 0) {
 			delete searchFilter.search.typeList;
-			router.push(`/property?input=${queryParams}`, `/property?input=${queryParams}`, { scroll: false }).then();
+			router
+				.push(
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
 		}
 
 		if (searchFilter?.search?.bathList?.length == 0) {
 			delete searchFilter.search.bathList;
-			router.push(`/property?input=${queryParams}`, `/property?input=${queryParams}`, { scroll: false }).then();
+			router
+				.push(
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
 		}
 
 		if (searchFilter?.search?.options?.length == 0) {
 			delete searchFilter.search.options;
-			router.push(`/property?input=${queryParams}`, `/property?input=${queryParams}`, { scroll: false }).then();
+			router
+				.push(
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
 		}
 
 		if (searchFilter?.search?.bedsList?.length == 0) {
 			delete searchFilter.search.bedsList;
-			router.push(`/property?input=${queryParams}`, `/property?input=${queryParams}`, { scroll: false }).then();
+			router
+				.push(
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/property?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
 		}
 
 		if (searchFilter?.search?.locationList) setShowMore(true);
 	}, [searchFilter]);
 
 	/** HANDLERS **/
+	const handleCancelClick = () => {
+		setIsFilterVisible(false); // Hide filter-config when cancel button is clicked
+	};
+
 	const propertyLocationSelectHandler = useCallback(
 		async (e: any) => {
 			try {
@@ -351,51 +429,6 @@ const Filter = (props: FilterType) => {
 		[searchFilter],
 	);
 
-	// const propertySquareHandler = useCallback(
-	// 	async (e: any, type: string) => {
-	// 		const value = e.target.value;
-
-	// 		if (type == 'start') {
-	// 			await router.push(
-	// 				`/property?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 						squaresRange: { ...searchFilter.search.squaresRange, start: value },
-	// 					},
-	// 				})}`,
-	// 				`/property?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 						squaresRange: { ...searchFilter.search.squaresRange, start: value },
-	// 					},
-	// 				})}`,
-	// 				{ scroll: false },
-	// 			);
-	// 		} else {
-	// 			await router.push(
-	// 				`/property?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 						squaresRange: { ...searchFilter.search.squaresRange, end: value },
-	// 					},
-	// 				})}`,
-	// 				`/property?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 						squaresRange: { ...searchFilter.search.squaresRange, end: value },
-	// 					},
-	// 				})}`,
-	// 				{ scroll: false },
-	// 			);
-	// 		}
-	// 	},
-	// 	[searchFilter],
-	// );
-
 	const propertyPriceHandler = useCallback(
 		async (value: number, type: string) => {
 			if (type == 'start') {
@@ -458,70 +491,18 @@ const Filter = (props: FilterType) => {
 		return (
 			<Stack className={'filter-main'}>
 				<Stack className={'find-your-home'} mb={'40px'}>
-					{/* <Typography className={'title-main'}>Find Your Home</Typography>
-					<Tooltip className={'reset-icon'} title="Reset">
-						<IconButton onClick={refreshHandler}>
-							<RefreshIcon />
-						</IconButton>
-					</Tooltip> */}
 					<Stack className={'top-wrapper'}>
 						<h2 className={'title-main'}>Find Your Destination</h2>
-						<button className="cancel-btn">
-							<img className={'cancel-icon'} src="/img/icons/cancel.svg" alt="" />
+						<button className="cancel-btn" onClick={handleCancelClick}>
+							<img className={'cancel-icon'} src="/img/icons/cancel.svg" alt="Cancel" />
 						</button>
 					</Stack>
-					{/* <Stack className={'input-box'}>
-						<OutlinedInput
-							value={searchText}
-							type={'text'}
-							className={'search-input'}
-							placeholder={'What are you looking for?'}
-							onChange={(e: any) => setSearchText(e.target.value)}
-							onKeyDown={(event: any) => {
-								if (event.key == 'Enter') {
-									setSearchFilter({
-										...searchFilter,
-										search: { ...searchFilter.search, text: searchText },
-									});
-								}
-							}}
-							endAdornment={
-								<>
-									<CancelRoundedIcon
-										onClick={() => {
-											setSearchText('');
-											setSearchFilter({
-												...searchFilter,
-												search: { ...searchFilter.search, text: '' },
-											});
-										}}
-									/>
-								</>
-							}
-						/>
-						<img src={'/img/icons/search_icon.png'} alt={''} />
-					</Stack> */}
-					{/* <Stack className={'reset-wrapper'}>
-						<Button className={'reset-btn'}>
-							<span>Reset</span>
-							<RefreshIcon />
-						</Button>
-					</Stack> */}
 				</Stack>
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
 						Location
 					</p>
-					<Stack
-						className={`property-location`}
-						// style={{ height: showMore ? '253px' : '115px' }}
-						// onMouseEnter={() => setShowMore(true)}
-						// onMouseLeave={() => {
-						// 	if (!searchFilter?.search?.locationList) {
-						// 		setShowMore(false);
-						// 	}
-						// }}
-					>
+					<Stack className={`property-location`}>
 						{propertyLocation.map((location: string) => {
 							return (
 								<Stack className={'input-box'} key={location}>

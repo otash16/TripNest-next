@@ -10,10 +10,12 @@ import { PropertiesInquiry } from '../../libs/types/property/property.input';
 import { Property } from '../../libs/types/property/property';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import { Direction } from '../../libs/enums/common.enum';
+import { Direction, Message } from '../../libs/enums/common.enum';
 import { GET_PROPERTIES } from '../../apollo/user/query';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../libs/types/common';
+import { LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -33,8 +35,11 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
+	const [isFilterVisible, setIsFilterVisible] = useState(false);
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+
 	const {
 		loading: getProperties,
 		data: getPropertiesData,
@@ -51,6 +56,10 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	});
 
 	/** LIFECYCLES **/
+	const toggleFilterVisibility = () => {
+		setIsFilterVisible(!isFilterVisible);
+	};
+
 	useEffect(() => {
 		if (router.query.input) {
 			const inputObj = JSON.parse(router?.query?.input as string);
@@ -60,7 +69,11 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
 	}, [router]);
 
-	useEffect(() => {}, [searchFilter]);
+	useEffect(() => {
+		// BECKEND REFETCH
+		console.log('searchFilter:', searchFilter);
+		// getPropertiesRefetch({ input: searchFilter }).then();
+	}, [searchFilter]);
 
 	/** HANDLERS **/
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {
@@ -73,6 +86,26 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 			},
 		);
 		setCurrentPage(value);
+	};
+
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+
+			// execute likePropertyHandler mutation
+			await likeTargetProperty({
+				variables: { input: id },
+			});
+
+			// execute getPropertiesRefetch
+			getPropertiesRefetch({ input: initialInput });
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR, likePropertyHandler:', err);
+			sweetMixinErrorAlert(err.message).then;
+		}
 	};
 
 	const sortingClickHandler = (e: MouseEvent<HTMLElement>) => {
@@ -113,7 +146,10 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 						<Box component={'div'} className={'sort'}>
 							<span>Sort by</span>
 							<div>
-								<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
+								<Button
+									onClick={sortingClickHandler}
+									endIcon={<KeyboardArrowDownRoundedIcon style={{ width: '20px' }} />}
+								>
 									{filterSortName}
 								</Button>
 								<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
@@ -151,7 +187,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 							</button>
 						</Box>
 						<Box component={'div'} className="filter-wrapper">
-							<button className={'filter-btn'}>
+							<button className={'filter-btn'} onClick={toggleFilterVisibility}>
 								<img className={'filter-icon'} src="/img/icons/filter.svg" alt="" />
 							</button>
 						</Box>
@@ -220,7 +256,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 					</div>
 
 					<Stack className={'property-page'}>
-						<Stack className={'filter-config'}>
+						<Stack className={'filter-config'} style={{ display: isFilterVisible ? 'block' : 'none' }}>
 							{/* @ts-ignore */}
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>
@@ -233,7 +269,9 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									</div>
 								) : (
 									properties.map((property: Property) => {
-										return <PropertyCard property={property} key={property?._id} />;
+										return (
+											<PropertyCard property={property} likePropertyHandler={likePropertyHandler} key={property?._id} />
+										);
 									})
 								)}
 							</Stack>
