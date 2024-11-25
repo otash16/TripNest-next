@@ -11,7 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
-import { useQuery, useReactiveVar } from '@apollo/client';
+import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { Property } from '../../libs/types/property/property';
 import moment from 'moment';
@@ -29,8 +29,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { GET_PROPERTIES, GET_PROPERTY } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
-import { Direction } from '../../libs/enums/common.enum';
-import { sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { Direction, Message } from '../../libs/enums/common.enum';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { CREATE_COMMENT, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -73,8 +74,8 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const formattedTomorrow = tomorrow.toISOString().split('T')[0];
 
 	/** APOLLO REQUESTS **/
-	// const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
-	// const [createComment] = useMutation(CREATE_COMMENT);
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [createComment] = useMutation(CREATE_COMMENT);
 
 	const {
 		loading: getProperty,
@@ -158,7 +159,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	/** HANDLERS **/
 	const handleReserveClick = async () => {
 		// Show SweetAlert message
-		await sweetTopSmallSuccessAlert('Please contact with host', 2000);
+		await sweetTopSmallSuccessAlert('Please call to host about reservation!!!', 2000);
 		setCheckInDate(''); // Reset check-in date
 		setCheckOutDate(''); // Reset check-out date
 		setGuests(1);
@@ -166,6 +167,38 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 
 	const changeImageHandler = (image: string) => {
 		setSlideImage(image);
+	};
+
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+
+			// execute likePropertyHandler mutation
+
+			await likeTargetProperty({
+				variables: { input: id },
+			});
+
+			// execute getPropertiesRefetch
+			await getPropertyRefetch({ input: id });
+			getPropertiesRefetch({
+				input: {
+					page: 1,
+					limit: 4,
+					sort: 'createdAt',
+					direction: Direction.DESC,
+					search: {
+						locationList: [property?.propertyLocation],
+					},
+				},
+			});
+
+			await sweetTopSmallSuccessAlert('seccess', 800);
+		} catch (err: any) {
+			console.log('ERROR, likePropertyHandler:', err);
+			sweetMixinErrorAlert(err.message).then;
+		}
 	};
 
 	const commentPaginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
@@ -242,7 +275,11 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 										</Stack>
 										<Stack className="button-box">
 											{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-												<FavoriteIcon color="primary" fontSize={'medium'} />
+												<FavoriteIcon
+													color="primary"
+													fontSize={'medium'}
+													onClick={() => likePropertyHandler(user, property?._id)}
+												/>
 											) : (
 												<FavoriteBorderIcon
 													fontSize={'medium'}
