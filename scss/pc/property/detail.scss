@@ -889,6 +889,7 @@
 							justify-content: flex-end;
 							button:disabled {
 								background: #f97316;
+								color: #ffffff;
 							}
 							.submit-review {
 								display: flex;
@@ -902,7 +903,7 @@
 								border: 1px solid #f97316;
 								cursor: pointer;
 								.title {
-									color: #ffffff;
+									// color: #181a20;
 									font-family: $font;
 									font-size: 15px;
 									font-style: normal;

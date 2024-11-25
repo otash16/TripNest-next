@@ -58,7 +58,7 @@ const AgentCard = (props: AgentCardProps) => {
 						</div>
 					</Stack>
 					<Box component={'div'} className={'buttons'}>
-						<Button className={'follow-btn'}>Follow me</Button>
+						{/* <Button className={'follow-btn'}>Follow me</Button> */}
 						<div className="icons-wrapper">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
