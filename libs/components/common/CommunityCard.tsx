@@ -21,7 +21,7 @@ interface CommunityCardProps {
 }
 
 const CommunityCard = (props: CommunityCardProps) => {
-	const { boardArticle, size = 'normal' } = props;
+	const { boardArticle, size = 'normal', likeArticleHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
@@ -55,45 +55,6 @@ const CommunityCard = (props: CommunityCardProps) => {
 				className="community-general-card-config"
 				onClick={(e) => chooseArticleHandler(e, boardArticle)}
 			>
-				{/* <Stack className="image-box">
-					<img src={imagePath} alt="" className="card-img" />
-				</Stack> */}
-				{/* <Stack className="desc-box" sx={{ marginTop: '-20px' }}>
-					<Stack>
-						<Typography
-							className="desc"
-							onClick={(e) => {
-								e.stopPropagation();
-								goMemberPage(boardArticle?.memberData?._id as string);
-							}}
-						>
-							{boardArticle?.memberData?.memberNick}
-						</Typography>
-						<Typography className="title">{boardArticle?.articleTitle}</Typography>
-					</Stack>
-					<Stack className={'buttons'}>
-						<IconButton color={'default'}>
-							<RemoveRedEyeIcon />
-						</IconButton>
-						<Typography className="view-cnt">{boardArticle?.articleViews}</Typography>
-						<IconButton color={'default'}>
-							{boardArticle?.meLiked && boardArticle?.meLiked[0]?.myFavorite ? (
-								<FavoriteIcon color={'primary'} />
-							) : (
-								<FavoriteBorderIcon />
-							)}
-						</IconButton>
-						<Typography className="view-cnt">{boardArticle?.articleLikes}</Typography>
-					</Stack>
-				</Stack> */}
-				{/* <Stack className="date-box">
-					<Moment className="month" format={'MMMM'}>
-						{boardArticle?.createdAt}
-					</Moment>
-					<Typography className="day">
-						<Moment format={'DD'}>{boardArticle?.createdAt}</Moment>
-					</Typography>
-				</Stack> */}
 				<Stack className={'card-wrapper'}>
 					<Stack className={'left'}>
 						<img className={'card-img'} src={imagePath} alt="" />
@@ -109,7 +70,12 @@ const CommunityCard = (props: CommunityCardProps) => {
 								</h6>
 							</Stack>
 							<Stack className={'buttons'}>
-								<IconButton color={'default'}>
+								<IconButton
+									color={'default'}
+									onClick={(e: any) => {
+										likeArticleHandler(e, user, boardArticle?._id);
+									}}
+								>
 									{boardArticle?.meLiked && boardArticle?.meLiked[0]?.myFavorite ? (
 										<FavoriteIcon color={'primary'} />
 									) : (
