@@ -35,7 +35,6 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
-	const [isFilterVisible, setIsFilterVisible] = useState(false);
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
@@ -56,9 +55,6 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	});
 
 	/** LIFECYCLES **/
-	const toggleFilterVisibility = () => {
-		setIsFilterVisible(!isFilterVisible);
-	};
 
 	useEffect(() => {
 		if (router.query.input) {
@@ -180,19 +176,8 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 								</Menu>
 							</div>
 						</Box>
-						<Box component={'div'} className={'input-wrapper'}>
-							<input className={'search-input'} type="search" placeholder="Find a destination..." />
-							<button className={'search-btn'} type="submit">
-								<img src="/img/icons//searchWhite.svg" alt="" />
-							</button>
-						</Box>
-						<Box component={'div'} className="filter-wrapper">
-							<button className={'filter-btn'} onClick={toggleFilterVisibility}>
-								<img className={'filter-icon'} src="/img/icons/filter.svg" alt="" />
-							</button>
-						</Box>
 					</Stack>
-					<div className="product-page-top">
+					{/* <div className="product-page-top">
 						<div className="top-btn-wrapper">
 							<button className={'top-btn'}>
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/parks.svg" alt="" />
@@ -253,10 +238,10 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 								<span className={'top-btn-txt'}>Luxe</span>
 							</button>
 						</div>
-					</div>
+					</div> */}
 
 					<Stack className={'property-page'}>
-						<Stack className={'filter-config'} style={{ display: isFilterVisible ? 'block' : 'none' }}>
+						<Stack className={'filter-config'}>
 							{/* @ts-ignore */}
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>

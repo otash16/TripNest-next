@@ -62,7 +62,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.ACTIVE } });
 				break;
 			case 'SOLD':
-				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.SOLD } });
+				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.RESERVED } });
 				break;
 			case 'DELETE':
 				setPropertiesInquiry({ ...propertiesInquiry, search: { propertyStatus: PropertyStatus.DELETE } });
