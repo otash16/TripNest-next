@@ -14,54 +14,36 @@ import { BoardArticle } from '../../types/board-article/board-article';
 
 interface ArticleBigCardProps {
 	article: BoardArticle;
+	likeArticleHandler: any;
 }
 
 const ArticleBigCard = (props: ArticleBigCardProps) => {
-	const { article } = props;
+	const { article, likeArticleHandler } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 
 	/** HANDLERS **/
-	const goPropertyDetatilPage = (articleId: string) => {
-		router.push(`/article/detail?id=${articleId}`);
+	const goArticleDetatilPage = (articleId: string) => {
+		router.push(`/community/detail?id=${articleId}`);
 	};
 
 	if (device === 'mobile') {
 		return <div>APARTMEND BIG CARD</div>;
 	} else {
 		return (
-			<Stack className="property-big-card-box" onClick={() => goPropertyDetatilPage(article?._id)}>
+			<Stack className="property-big-card-box" onClick={() => goArticleDetatilPage(article?._id)}>
 				<Box
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${article?.articleImage})` }}
 				>
-					{/* {property?.propertyRank && property?.propertyRank >= 2 && (
-						<div className={'status'}>
-							<img src="/img/icons/star.svg" alt="" />
-						</div>
-					)} */}
-
 					<div className={'price'}>{article?.articleCategory} </div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{article?.articleTitle}</strong>
 					<p className={'desc'}>{article?.articleContent}</p>
-					{/* <div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/bath.svg" alt="" />
-							<span>{property?.propertyBath} baths</span>
-						</div>
-						<div>
-							<img src="/img/icons/guests.svg" alt="" />
-							<span>{property?.propertyGuests} guests</span>
-						</div>
-					</div> */}
+
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
 						<div className="buttons-box">
@@ -71,8 +53,9 @@ const ArticleBigCard = (props: ArticleBigCardProps) => {
 							<Typography className="view-cnt">{article?.articleViews}</Typography>
 							<IconButton
 								color={'default'}
-								onClick={(e) => {
+								onClick={(e: any) => {
 									e.stopPropagation();
+									likeArticleHandler(e, user, article?._id);
 								}}
 							>
 								{article?.meLiked && article?.meLiked[0]?.myFavorite ? (

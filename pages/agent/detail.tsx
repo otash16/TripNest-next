@@ -23,7 +23,7 @@ import { T } from '../../libs/types/common';
 import { BoardArticle } from '../../libs/types/board-article/board-article';
 import { BoardArticlesInquiry } from '../../libs/types/board-article/board-article.input';
 import ArticleBigCard from '../../libs/components/common/ArticleBigCard';
-import { CREATE_COMMENT, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
+import { CREATE_COMMENT, LIKE_TARGET_BOARD_ARTICLE, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -42,6 +42,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 	const [agentArticles, setAgentArticles] = useState<BoardArticle[]>([]);
 	const [searchCommunity, setSearchCommunity] = useState<BoardArticlesInquiry>(initialArticle);
 	const [propertyTotal, setPropertyTotal] = useState<number>(0);
+	const [articleTotal, setArticleTotal] = useState<number>(0);
 	const [totalCount, setTotalCount] = useState<number>(0);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [agentComments, setAgentComments] = useState<Comment[]>([]);
@@ -56,6 +57,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 	/** APOLLO REQUESTS **/
 	const [createComment] = useMutation(CREATE_COMMENT);
 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
 
 	const {
 		loading: getMemberLoading,
@@ -194,6 +196,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 			await sweetErrorHandling(err);
 		}
 	};
+
 	const likePropertyHandler = async (user: any, id: string) => {
 		try {
 			if (!id) return;
@@ -209,6 +212,27 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 			sweetErrorHandling(err).then();
 			console.log('ERROR, likePropertyHandler:', err.message);
 			await sweetMixinErrorAlert(err);
+		}
+	};
+
+	const likeArticleHandler = async (e: any, user: T, id: string) => {
+		try {
+			e.stopPropagation();
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2);
+
+			// execute likePropertyHandler mutation
+			await likeTargetBoardArticle({
+				variables: { input: id },
+			});
+
+			// execute getPropertiesRefetch
+			getBoardArticlesRefetch({ input: searchCommunity });
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR, likeArticleHandler:', err);
+			sweetMixinErrorAlert(err.message).then;
 		}
 	};
 
@@ -235,9 +259,12 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 										agent?.memberImage ? `${REACT_APP_API_URL}/${agent?.memberImage}` : '/img/profile/defaultUser.svg'
 									}
 									alt=""
+									onClick={() => redirectToMemberPageHandler(agent?._id as string)}
 								/>
 								<Stack className={'agent-info'}>
-									<h2 className="agent-name">{agent?.memberNick}</h2>
+									<h2 className="agent-name" onClick={() => redirectToMemberPageHandler(agent?._id as string)}>
+										{agent?.memberNick}
+									</h2>
 									<p className="agent-type">Agent</p>
 									<p className="agent-phone">
 										<span>{agent?.memberPhone}</span>
@@ -255,8 +282,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 									<p className="agent-stats-txt">Followings</p>
 								</div>
 								<div className="agent-stats-inner">
-									<p className="agent-stats-number">{agent?.memberLikes}</p>
-									<p className="agent-stats-txt">Likes</p>
+									<p className="agent-stats-number">{agent?.memberProperties}</p>
+									<p className="agent-stats-txt">Properties</p>
 								</div>
 								<div className="agent-stats-inner">
 									<p className="agent-stats-number">{agent?.memberArticles}</p>
@@ -323,7 +350,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 									{agentArticles.map((article: BoardArticle) => {
 										return (
 											<div className={'wrap-main'} key={article?._id}>
-												<ArticleBigCard article={article} key={article?._id} />
+												<ArticleBigCard article={article} key={article?._id} likeArticleHandler={likeArticleHandler} />
 											</div>
 										);
 									})}
@@ -333,15 +360,13 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 												<Stack className="pagination-box">
 													<Pagination
 														page={searchFilter.page}
-														count={Math.ceil(propertyTotal / searchFilter.limit) || 1}
+														count={Math.ceil(articleTotal / searchFilter.limit) || 1}
 														onChange={propertyPaginationChangeHandler}
 														shape="circular"
 														color="primary"
 													/>
 												</Stack>
-												<span>
-													Total {propertyTotal} propert{propertyTotal > 1 ? 'ies' : 'y'} available
-												</span>
+												<span>Total {agent?.memberArticles} articles available</span>
 											</>
 										) : (
 											<div className={'no-data'}>
