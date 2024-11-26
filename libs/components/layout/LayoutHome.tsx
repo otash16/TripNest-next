@@ -54,7 +54,7 @@ const withLayoutMain = (Component: any) => {
 				<>
 					<Head>
 						<title>EaseUp</title>
-						<meta name={'title'} content={`Nestar`} />
+						<meta name={'title'} content={`EaseUp`} />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
