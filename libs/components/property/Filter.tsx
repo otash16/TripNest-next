@@ -578,7 +578,7 @@ const Filter = (props: FilterType) => {
 						<span>Filters</span>
 					</button>
 				</Box>
-				<div className="product-page-top">
+				{/* <div className="product-page-top">
 					<div className="top-btn-wrapper">
 						<button className={'top-btn'}>
 							<img className={'top-btn-icon'} src="/img/icons/propertTypes/parks.svg" alt="" />
@@ -639,7 +639,7 @@ const Filter = (props: FilterType) => {
 							<span className={'top-btn-txt'}>Luxe</span>
 						</button>
 					</div>
-				</div>
+				</div> */}
 				<Stack className={'filter-main'} style={{ display: isFilterVisible ? 'block' : 'none' }}>
 					<Stack className={'find-your-home'} mb={'40px'}>
 						<Stack className={'top-wrapper'}>

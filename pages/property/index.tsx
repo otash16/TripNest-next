@@ -16,6 +16,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../libs/types/common';
 import { LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { PropertyType } from '../../libs/enums/property.enum';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -35,6 +36,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
+	const [selectedType, setSelectedType] = useState<string | null>(null);
 
 	/** APOLLO REQUESTS **/
 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
@@ -132,6 +134,111 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		setAnchorEl(null);
 	};
 
+	const sortingTypeHandler = (e: React.MouseEvent<HTMLLIElement>) => {
+		const selectedId = e.currentTarget.id; // Get the clicked button's ID
+		setSelectedType(selectedId);
+		if (selectedId === 'all') {
+			// Reset search filter to show all properties without any specific sorting
+			setSearchFilter({
+				...searchFilter,
+				search: { ...searchFilter.search, typeList: [] }, // No type filtering
+				direction: Direction.ASC, // Optional: if you still want to keep ascending order
+			});
+		} else {
+			switch (selectedId) {
+				case 'park':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.PARKS] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Park');
+					break;
+				case 'lake':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.LAKE] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Lake');
+					break;
+				case 'countryside':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.COUNTRYSIDE] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Countryside');
+					break;
+				case 'hanok':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.HANOKS] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Hanok');
+					break;
+				case 'pool':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.AMAZING_POOLS] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Pool');
+					break;
+				case 'camping':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.CAMPING] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Camping');
+					break;
+				case 'play':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.PLAY] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Play');
+					break;
+				case 'farm':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.FARMS] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Farm');
+					break;
+				case 'skiing':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.SKIING] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Skiing');
+					break;
+				case 'luxe':
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [PropertyType.LUXE] },
+						direction: Direction.ASC,
+					});
+					// setFilterSortName('Luxe');
+					break;
+				default:
+					setSearchFilter({
+						...searchFilter,
+						search: { ...searchFilter.search, typeList: [] },
+					});
+				// setFilterSortName('All Types');
+			}
+		}
+
+		setSortingOpen(false);
+		setAnchorEl(null);
+	};
+
 	if (device === 'mobile') {
 		return <h1>PROPERTIES MOBILE</h1>;
 	} else {
@@ -177,72 +284,145 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 							</div>
 						</Box>
 					</Stack>
-					{/* <div className="product-page-top">
+					<div className="product-page-top">
+						<div className="top-btn-wrapper">
+							<button className="top-btn">
+								<img className={'top-btn-icon'} src="/img/icons/propertTypes/all.svg" alt="All" />
+								<span
+									id={'all'}
+									className={`top-btn-txt ${selectedType === 'all' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									All
+								</span>
+							</button>
+						</div>
 						<div className="top-btn-wrapper">
 							<button className={'top-btn'}>
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/parks.svg" alt="" />
-								<span className={'top-btn-txt'}>Parks</span>
+								<span
+									id={'park'}
+									className={`top-btn-txt ${selectedType === 'park' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Park
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/countryside.svg" alt="" />
-								<span className={'top-btn-txt'}>Countryside</span>
+								<span
+									id={'countryside'}
+									className={`top-btn-txt ${selectedType === 'countryside' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Countryside
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/hanoks.svg" alt="" />
-								<span className={'top-btn-txt'}>Hanok</span>
+								<span
+									id={'hanok'}
+									className={`top-btn-txt ${selectedType === 'hanok' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Hanok
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/lake.svg" alt="" />
-								<span className={'top-btn-txt'}>Lake</span>
+								<span
+									id={'lake'}
+									className={`top-btn-txt ${selectedType === 'lake' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Lake
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/skiing.svg" alt="" />
-								<span className={'top-btn-txt'}>Skiing</span>
+								<span
+									id={'skiing'}
+									className={`top-btn-txt ${selectedType === 'skiing' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Skiing
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/farms.svg" alt="" />
-								<span className={'top-btn-txt'}>Farm</span>
+								<span
+									id={'farm'}
+									className={`top-btn-txt ${selectedType === 'farm' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Farm
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/pool.svg" alt="" />
-								<span className={'top-btn-txt'}>Pool</span>
+								<span
+									id={'pool'}
+									className={`top-btn-txt ${selectedType === 'pool' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Pool
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/camping.svg" alt="" />
-								<span className={'top-btn-txt'}>Camping</span>
+								<span
+									id={'camping'}
+									className={`top-btn-txt ${selectedType === 'camping' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Camping
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/play.svg" alt="" />
-								<span className={'top-btn-txt'}>Play</span>
+								<span
+									id={'play'}
+									className={`top-btn-txt ${selectedType === 'play' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Play
+								</span>
 							</button>
 						</div>
 						<div className="top-btn-wrapper">
 							<button className="top-btn">
 								<img className={'top-btn-icon'} src="/img/icons/propertTypes/luxe.svg" alt="" />
-								<span className={'top-btn-txt'}>Luxe</span>
+								<span
+									id={'luxe'}
+									className={`top-btn-txt ${selectedType === 'luxe' ? 'selected' : ''}`}
+									onClick={sortingTypeHandler}
+								>
+									Luxe
+								</span>
 							</button>
 						</div>
-					</div> */}
+					</div>
 
 					<Stack className={'property-page'}>
 						<Stack className={'filter-config'}>
 							{/* @ts-ignore */}
+
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>
 						<Stack className="main-config" mb={'76px'}>

@@ -52,8 +52,21 @@
 						font-size: 16px;
 						font-weight: 500;
 						cursor: pointer;
-						&:hover {
-							color: #f97316;
+						.top-btn-txt {
+							padding-bottom: 5px;
+							border-bottom: 2px solid transparent;
+							&:hover {
+								color: #f97316;
+								border-bottom: 2px solid #f97316;
+							}
+							&.selected {
+								color: #f97316;
+								border-bottom: 2px solid #f97316;
+
+								&:hover {
+									color: #d55c0c; /* Darker hover color when selected */
+								}
+							}
 						}
 					}
 
