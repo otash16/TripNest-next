@@ -823,7 +823,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					search: {
 						...searchFilter.search,
 						// @ts-ignore
-						squaresRange: { ...searchFilter.search.squaresRange, start: parseInt(value) },
+						guestsRange: { ...searchFilter.search.guestsRange, start: parseInt(value) },
 					},
 				});
 			} else {
@@ -832,7 +832,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					search: {
 						...searchFilter.search,
 						// @ts-ignore
-						squaresRange: { ...searchFilter.search.squaresRange, end: parseInt(value) },
+						guestsRange: { ...searchFilter.search.guestsRange, end: parseInt(value) },
 					},
 				});
 			}
@@ -917,7 +917,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openRooms ? 'on' : ''}`} onClick={roomStateChangeHandler}>
-							<span>{searchFilter?.search?.bathList ? `${searchFilter?.search?.bathList[0]} baths}` : t('Baths')}</span>
+							<span>{searchFilter?.search?.bathList ? `${searchFilter?.search?.bathList[0]} baths` : t('Baths')}</span>
 							<ExpandMoreIcon />
 						</Box>
 					</Stack>
@@ -927,7 +927,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<span>{t('Advanced')}</span>
 						</Box>
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
-							<img src="/img/icons/search_white.svg" alt="" />
+							{/* <img src="/img/icons/search_white.svg" alt="" /> */}
+							Search
 						</Box>
 					</Stack>
 
@@ -936,7 +937,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{propertyLocation.map((location: string) => {
 							return (
 								<div onClick={() => propertyLocationSelectHandler(location)} key={location}>
-									<img src={`img/banner/cities/${location}.webp`} alt="" />
+									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" />
 									<span>{location}</span>
 								</div>
 							);
@@ -1152,9 +1153,9 @@ HeaderFilter.defaultProps = {
 		page: 1,
 		limit: 9,
 		search: {
-			squaresRange: {
+			guestsRange: {
 				start: 0,
-				end: 500,
+				end: 50,
 			},
 			pricesRange: {
 				start: 0,

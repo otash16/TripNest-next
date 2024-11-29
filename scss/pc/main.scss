@@ -95,8 +95,6 @@ body::-webkit-scrollbar {
 							font-weight: 400;
 							line-height: 26px;
 						}
-						svg {
-						}
 					}
 				}
 				.search-box-other {
@@ -126,7 +124,7 @@ body::-webkit-scrollbar {
 						}
 					}
 					.search-btn {
-						margin-left: 12px;
+						margin-left: 30px;
 						width: 140px;
 						height: 56px;
 						display: flex;
@@ -134,6 +132,7 @@ body::-webkit-scrollbar {
 						justify-content: center;
 						border-radius: 12px;
 						background: #f17742;
+						color: #ffffff;
 						cursor: pointer;
 						svg {
 							width: 20px;
@@ -199,7 +198,7 @@ body::-webkit-scrollbar {
 				}
 				.filter-type {
 					position: absolute;
-					padding: 50px;
+					padding: 40px;
 					width: 1094px;
 					// min-height: 120px;
 					height: auto;
@@ -208,12 +207,14 @@ body::-webkit-scrollbar {
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
+					flex-wrap: wrap;
 					visibility: hidden;
 					border-radius: 12px;
 					background: #fff;
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 1;
+
 					&.on {
 						visibility: visible;
 						transition: 0.2s ease-out;
@@ -221,23 +222,28 @@ body::-webkit-scrollbar {
 					}
 					div {
 						position: relative;
-						width: 272px;
-						height: 168px;
+						width: 200px;
+						height: 150px;
+						margin-bottom: 10px;
 						border-radius: 15px;
 						cursor: pointer;
 						background-size: cover;
+						border: 0.5px solid #181a20;
+
 						span {
 							position: absolute;
 							top: 13px;
 							right: 12px;
-							padding: 1px 5px 5px 5px;
-							border-radius: 2px 2px 0px 0px;
+							padding: 2px 5px;
+							border-radius: 5px;
 							font-family: $font;
-							font-size: 20px;
+							font-size: 14px;
 							font-style: normal;
 							font-weight: 700;
 							line-height: 26px;
-							background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+							background: #f97316;
+							color: #ffffff;
+
 							// -webkit-background-clip: text;
 							// -webkit-text-fill-color: transparent;
 							text-transform: capitalize;
