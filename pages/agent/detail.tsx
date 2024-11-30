@@ -23,7 +23,13 @@ import { T } from '../../libs/types/common';
 import { BoardArticle } from '../../libs/types/board-article/board-article';
 import { BoardArticlesInquiry } from '../../libs/types/board-article/board-article.input';
 import ArticleBigCard from '../../libs/components/common/ArticleBigCard';
-import { CREATE_COMMENT, LIKE_TARGET_BOARD_ARTICLE, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
+import {
+	CREATE_COMMENT,
+	LIKE_TARGET_BOARD_ARTICLE,
+	LIKE_TARGET_PROPERTY,
+	SUBSCRIBE,
+	UNSUBSCRIBE,
+} from '../../apollo/user/mutation';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -53,11 +59,14 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 		commentRefId: '',
 	});
 	const [activeSection, setActiveSection] = useState<'Properties' | 'Articles'>('Properties');
+	const { memberId } = router.query;
 
 	/** APOLLO REQUESTS **/
 	const [createComment] = useMutation(CREATE_COMMENT);
 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
 	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+	const [subscribe] = useMutation(SUBSCRIBE);
+	const [unsubscribe] = useMutation(UNSUBSCRIBE);
 
 	const {
 		loading: getMemberLoading,
@@ -236,6 +245,39 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 		}
 	};
 
+	const subscribeHandler = async (id: string, refetch: any, query: any) => {
+		try {
+			if (!id) throw new Error(Messages.error1);
+			if (!user._id) throw Error(Messages.error2);
+			await subscribe({
+				variables: {
+					input: id,
+				},
+			});
+			await sweetTopSmallSuccessAlert('Followed!', 800);
+			await refetch({ input: query });
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const unsubscribeHandler = async (id: string, refetch: any, query: any) => {
+		try {
+			if (!id) throw new Error(Messages.error1);
+			if (!user._id) throw Error(Messages.error2);
+			await unsubscribe({
+				variables: {
+					input: id,
+				},
+			});
+
+			await sweetTopSmallSuccessAlert('Unfollowed!', 800);
+			await refetch({ input: query });
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
 	if (device === 'mobile') {
 		return <div>AGENT DETAIL PAGE MOBILE</div>;
 	} else {
@@ -310,7 +352,31 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, initialArticle, .
 										Articles
 									</Button>
 								</div>
-								<Button className={'follow-btn'}>Follow</Button>
+								<Button onClick={() => redirectToMemberPageHandler(agent?._id as string)} className="follow-btn">
+									See more
+								</Button>
+								{/* <Stack className="follow-button-box">
+									{agent?.meFollowed && agent?.meFollowed[0]?.myFollowing ? (
+										<>
+											<Button
+												variant="outlined"
+												sx={{ background: '#b9b9b9' }}
+												onClick={() => unsubscribeHandler(agent?._id, getMemberRefetch, memberId)}
+											>
+												Unfollow
+											</Button>
+											<Typography>Following</Typography>
+										</>
+									) : (
+										<Button
+											variant="contained"
+											sx={{ background: '#ff5d18', ':hover': { background: '#ff5d18' } }}
+											onClick={() => subscribeHandler(agent?._id as string, getMemberRefetch, memberId)}
+										>
+											Follow
+										</Button>
+									)}
+								</Stack> */}
 							</Stack>
 							{activeSection === 'Properties' && (
 								<Stack className={'agent-properties'}>

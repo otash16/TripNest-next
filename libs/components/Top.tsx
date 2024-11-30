@@ -224,7 +224,7 @@ const Top = () => {
 							) : (
 								<Link href={'/account/join'}>
 									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon />
+										<AccountCircleOutlinedIcon style={{ color: '#f97316' }} />
 										<span>
 											{t('Login')} / {t('Register')}
 										</span>
@@ -238,7 +238,7 @@ const Top = () => {
 									disableRipple
 									className="btn-lang"
 									onClick={langClick}
-									endIcon={<CaretDown size={14} color="#616161" weight="fill" />}
+									endIcon={<CaretDown size={14} color="#ffffff" weight="fill" />}
 								>
 									<Box component={'div'} className={'flag'}>
 										{lang !== null ? (
