@@ -12,6 +12,7 @@ import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
 import { Messages } from '../../config';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import ArticleCard from '../community/ArticleCard';
 
 const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -85,7 +86,7 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 					)}
 					{memberBoArticles?.map((boardArticle: BoardArticle) => {
 						return (
-							<CommunityCard
+							<ArticleCard
 								boardArticle={boardArticle}
 								likeArticleHandler={likeBoardArticleHandler}
 								key={boardArticle?._id}
