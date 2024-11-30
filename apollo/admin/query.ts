@@ -114,30 +114,18 @@ export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
 
 export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
 	query GetAllBoardArticlesByAdmin($input: AllBoardArticlesInquiry!) {
-		getAllPropertiesByAdmin(input: $input) {
+		getAllBoardArticlesByAdmin(input: $input) {
 			list {
 				_id
-				propertyType
-				propertyStatus
-				propertyLocation
-				propertyAddress
-				propertyTitle
-				propertyPrice
-				propertyBeds
-				propertyBath
-				propertyGuests
-				propertyViews
-				propertyLikes
-				propertyComments
-				propertyRank
-				propertyImages
-				propertyDesc
-				propertyFamily
-				propertySeasonal
+				articleCategory
+				articleStatus
+				articleTitle
+				articleContent
+				articleImage
+				articleViews
+				articleLikes
+				articleComments
 				memberId
-				reservedAt
-				deletedAt
-				constructedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -166,6 +154,11 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
 					createdAt
 					updatedAt
 					accessToken
+				}
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
 				}
 			}
 			metaCounter {
