@@ -57,15 +57,18 @@ export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
 				propertyTitle
 				propertyPrice
 				propertyBeds
-				propertyRooms
+				propertyBath
+				propertyGuests
 				propertyViews
 				propertyLikes
+				propertyComments
+				propertyRank
 				propertyImages
 				propertyDesc
-				propertyBarter
-				propertyRent
+				propertyFamily
+				propertySeasonal
 				memberId
-				soldAt
+				reservedAt
 				deletedAt
 				constructedAt
 				createdAt
@@ -81,13 +84,17 @@ export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberWarnings
-					memberBlocks
 					memberProperties
-					memberRank
+					memberArticles
+					memberFollowers
+					memberFollowings
 					memberPoints
 					memberLikes
 					memberViews
+					memberComments
+					memberRank
+					memberWarnings
+					memberBlocks
 					deletedAt
 					createdAt
 					updatedAt
@@ -107,17 +114,30 @@ export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
 
 export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
 	query GetAllBoardArticlesByAdmin($input: AllBoardArticlesInquiry!) {
-		getAllBoardArticlesByAdmin(input: $input) {
+		getAllPropertiesByAdmin(input: $input) {
 			list {
 				_id
-				articleCategory
-				articleStatus
-				articleTitle
-				articleContent
-				articleImage
-				articleViews
-				articleLikes
+				propertyType
+				propertyStatus
+				propertyLocation
+				propertyAddress
+				propertyTitle
+				propertyPrice
+				propertyBeds
+				propertyBath
+				propertyGuests
+				propertyViews
+				propertyLikes
+				propertyComments
+				propertyRank
+				propertyImages
+				propertyDesc
+				propertyFamily
+				propertySeasonal
 				memberId
+				reservedAt
+				deletedAt
+				constructedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -131,13 +151,17 @@ export const GET_ALL_BOARD_ARTICLES_BY_ADMIN = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberWarnings
-					memberBlocks
 					memberProperties
-					memberRank
+					memberArticles
+					memberFollowers
+					memberFollowings
 					memberPoints
 					memberLikes
 					memberViews
+					memberComments
+					memberRank
+					memberWarnings
+					memberBlocks
 					deletedAt
 					createdAt
 					updatedAt
