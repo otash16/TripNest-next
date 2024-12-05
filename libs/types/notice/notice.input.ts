@@ -17,6 +17,7 @@ export interface NoticesInquiry {
 interface ANISearch {
 	noticeStatus?: NoticeStatus;
 	noticeCategory?: NoticeCategory;
+	text?: string;
 }
 
 export interface AllNoticesInquiry {

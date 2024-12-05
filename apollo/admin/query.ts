@@ -214,3 +214,27 @@ export const GET_COMMENTS = gql`
 		}
 	}
 `;
+
+/**************************
+ *         NOTICE       *
+ *************************/
+export const GET_NOTICES_BY_ADMIN = gql`
+	query GetAllNoticesByAdmin($input: AllNoticesInquiry!) {
+		getAllNoticesByAdmin(input: $input) {
+			list {
+				_id
+				noticeCategory
+				noticeStatus
+				noticeTitle
+				memberId
+				blockedAt
+				deletedAt
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
