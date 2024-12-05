@@ -225,6 +225,50 @@ export const REMOVE_NOTICE_BY_ADMIN = gql`
 /**************************
  *        FAQ     *
  *************************/
+export const CREATE_FAQ_BY_ADMIN = gql`
+	mutation CreateFaq($input: FaqInput!) {
+		createFaq(input: $input) {
+			_id
+			faqCategory
+			faqStatus
+			faqTitle
+			faqContent
+			memberId
+			blockedAt
+			deletedAt
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProperties
+				memberArticles
+				memberFollowers
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				deletedAt
+				createdAt
+				updatedAt
+				accessToken
+			}
+		}
+	}
+`;
+
 export const UPDATE_FAQ_BY_ADMIN = gql`
 	mutation UpdateFaq($input: FaqUpdate!) {
 		updateFaq(input: $input) {

@@ -125,7 +125,7 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 	const removeNoticeHandler = async (id: string) => {
 		try {
 			if (await sweetConfirmAlert('Are you sure to remove?')) {
-				await removeFaqByAdmin({
+				await removeNoticeByAdmin({
 					variables: {
 						input: id,
 					},
@@ -183,108 +183,6 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 		}
 	};
 
-	// return (
-	// 	// @ts-ignore
-	// 	<Box component={'div'} className={'content'}>
-	// 		<Box component={'div'} className={'title flex_space'}>
-	// 			<Typography variant={'h2'}>Notice Management</Typography>
-	// 			<Button
-	// 				className="btn_add"
-	// 				variant={'contained'}
-	// 				size={'medium'}
-	// 				// onClick={() => router.push(`/_admin/cs/faq_create`)}
-	// 			>
-	// 				<AddRoundedIcon sx={{ mr: '8px' }} />
-	// 				ADD
-	// 			</Button>
-	// 		</Box>
-	// 		<Box component={'div'} className={'table-wrap'}>
-	// 			<Box component={'div'} sx={{ width: '100%', typography: 'body1' }}>
-	// 				<TabContext value={'value'}>
-	// 					<Box component={'div'}>
-	// 						<List className={'tab-menu'}>
-	// 							<ListItem
-	// 								onClick={(e) => tabChangeHandler(e, 'all')}
-	// 								value="all"
-	// 								className={'all' === 'all' ? 'li on' : 'li'}
-	// 							>
-	// 								All
-	// 							</ListItem>
-	// 							<ListItem
-	// 								onClick={(e) => tabChangeHandler(e, 'active')}
-	// 								value="active"
-	// 								className={'all' === 'all' ? 'li on' : 'li'}
-	// 							>
-	// 								Active
-	// 							</ListItem>
-	// 							<ListItem
-	// 								onClick={(e) => tabChangeHandler(e, 'blocked')}
-	// 								value="blocked"
-	// 								className={'all' === 'all' ? 'li on' : 'li'}
-	// 							>
-	// 								Blocked
-	// 							</ListItem>
-	// 							<ListItem
-	// 								onClick={(e) => tabChangeHandler(e, 'deleted')}
-	// 								value="deleted"
-	// 								className={'all' === 'all' ? 'li on' : 'li'}
-	// 							>
-	// 								Deleted
-	// 							</ListItem>
-	// 						</List>
-	// 						<Divider />
-	// 						<Stack className={'search-area'} sx={{ m: '24px' }}>
-	// 							<Select sx={{ width: '160px', mr: '20px' }} value={'searchCategory'}>
-	// 								<MenuItem value={'mb_nick'}>mb_nick</MenuItem>
-	// 								<MenuItem value={'mb_id'}>mb_id</MenuItem>
-	// 							</Select>
-
-	// 							<OutlinedInput
-	// 								value={'searchInput'}
-	// 								// onChange={(e) => handleInput(e.target.value)}
-	// 								sx={{ width: '100%' }}
-	// 								className={'search'}
-	// 								placeholder="Search user name"
-	// 								onKeyDown={(event) => {
-	// 									// if (event.key == 'Enter') searchTargetHandler().then();
-	// 								}}
-	// 								endAdornment={
-	// 									<>
-	// 										{true && <CancelRoundedIcon onClick={() => {}} />}
-	// 										<InputAdornment position="end" onClick={() => {}}>
-	// 											<img src="/img/icons/search_icon.png" alt={'searchIcon'} />
-	// 										</InputAdornment>
-	// 									</>
-	// 								}
-	// 							/>
-	// 						</Stack>
-	// 						<Divider />
-	// 					</Box>
-	// 					<NoticeList
-	// 						notices={notices}
-	// 						// dense={dense}
-	// 						// membersData={membersData}
-	// 						// searchMembers={searchMembers}
-	// 						anchorEl={anchorEl}
-	// 						menuIconClickHandler={menuIconClickHandler}
-	// 						menuIconCloseHandler={menuIconCloseHandler}
-	// 						// generateMentorTypeHandle={generateMentorTypeHandle}
-	// 					/>
-
-	// 					<TablePagination
-	// 						rowsPerPageOptions={[20, 40, 60]}
-	// 						component="div"
-	// 						count={4}
-	// 						rowsPerPage={10}
-	// 						page={1}
-	// 						onPageChange={changePageHandler}
-	// 						onRowsPerPageChange={changeRowsPerPageHandler}
-	// 					/>
-	// 				</TabContext>
-	// 			</Box>
-	// 		</Box>
-	// 	</Box>
-	// );
 	return (
 		<Box component={'div'} className={'content'}>
 			<Box
@@ -433,6 +331,6 @@ AdminNotice.defaultProps = {
 };
 
 export default withAdminLayout(AdminNotice);
-function removeFaqByAdmin(arg0: { variables: { input: string } }) {
-	throw new Error('Function not implemented.');
-}
+// function removeFaqByAdmin(arg0: { variables: { input: string } }) {
+// 	throw new Error('Function not implemented.');
+// }

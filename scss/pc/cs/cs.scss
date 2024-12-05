@@ -222,4 +222,93 @@
 			}
 		}
 	}
+	#add-faq-page {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 1000px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 40px;
+		border: 1px solid #181a20;
+		border-radius: 8px;
+		.main-title-box {
+			.main-title {
+				margin-bottom: 50px;
+				color: #181a20;
+				font-family: Poppins, sans-serif;
+				font-size: 30px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: normal;
+				letter-spacing: 0.6px;
+				text-transform: capitalize;
+			}
+		}
+		.config {
+			.config-column {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				.config-column-inner {
+					width: 435px;
+					margin-right: 20px;
+					.input-title {
+						color: #181a20;
+						font-family: Poppins, sans-serif;
+						font-size: 14px;
+						font-style: normal;
+						font-weight: 600;
+						line-height: normal;
+						margin-bottom: 5px;
+					}
+					.input {
+						width: 100%;
+						height: 47px;
+						outline: none;
+						border-radius: 8px;
+						padding: 0 15px;
+						border: 1px solid #ddd;
+					}
+				}
+			}
+			.input-title {
+				margin-bottom: 5px;
+				margin-top: 30px;
+				color: #181a20;
+				font-family: Poppins, sans-serif;
+				font-size: 14px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: normal;
+			}
+			.config-column {
+				margin-bottom: 30px;
+				.answer-content-text {
+					width: 895px;
+					height: 100px;
+					padding: 10px;
+					font-size: 14px;
+					border-radius: 8px;
+					border: 1px solid #ddd;
+				}
+			}
+		}
+		.insert-btn {
+			padding: 15px 25px;
+			border-radius: 8px;
+			color: #fff;
+			font-size: 16px;
+			font-weight: 600;
+			background-color: #f97316;
+			border: 1px solid #f97316;
+			cursor: pointer;
+			&:hover {
+				background-color: #ffffff;
+				color: #f97316;
+			}
+		}
+	}
 }
