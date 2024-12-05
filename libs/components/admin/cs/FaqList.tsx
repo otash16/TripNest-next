@@ -13,6 +13,7 @@ import {
 	Fade,
 	MenuItem,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
@@ -134,6 +135,7 @@ interface FaqArticlesPanelListType {
 	menuIconCloseHandler?: any;
 	generateMentorTypeHandle?: any;
 	updateNoticeHandler: any;
+	removeFaqHandler: any;
 }
 
 export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
@@ -147,6 +149,7 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 		menuIconCloseHandler,
 		generateMentorTypeHandle,
 		updateNoticeHandler,
+		removeFaqHandler,
 	} = props;
 	const router = useRouter();
 
@@ -173,7 +176,9 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 							faqs?.map((faq: Faq1, index: number) => {
 								return (
 									<TableRow hover key={faq?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-										<TableCell align="left">{faq.faqCategory}</TableCell>
+										<TableCell align="left" style={{ color: '#000', fontWeight: '500' }}>
+											{faq.faqCategory}
+										</TableCell>
 
 										<TableCell align="left" className={'name'}>
 											<Stack direction={'row'}>
@@ -189,7 +194,15 @@ export const FaqArticlesPanelList = (props: FaqArticlesPanelListType) => {
 										<TableCell align="left">{faq._id}</TableCell>
 										<TableCell align="left">{moment(faq.createdAt).format('YYYY-MM-DD')}</TableCell>
 
-										<TableCell align="center">...</TableCell>
+										<TableCell align="center">
+											<Button
+												variant="outlined"
+												sx={{ p: '3px', border: 'none', ':hover': { border: '1px solid #000000' } }}
+												onClick={() => removeFaqHandler(faq._id)}
+											>
+												<DeleteIcon fontSize="small" />
+											</Button>
+										</TableCell>
 
 										<TableCell align="center">
 											<Button onClick={(e: any) => menuIconClickHandler(e, faq._id)} className={'badge success'}>

@@ -21,7 +21,8 @@ import { AllNoticesInquiry } from '../../../libs/types/notice/notice.input';
 import { REMOVE_NOTICE_BY_ADMIN, UPDATE_NOTICE_BY_ADMIN } from '../../../apollo/admin/mutation';
 import { NoticeCategory, NoticeStatus } from '../../../libs/enums/notice.enum copy';
 import { NoticeUpdate } from '../../../libs/types/notice/notice.update';
-import { sweetErrorHandling } from '../../../libs/sweetAlert';
+import { sweetConfirmAlert, sweetErrorHandling } from '../../../libs/sweetAlert';
+import router from 'next/router';
 
 const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
@@ -116,6 +117,22 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 			});
 			menuIconCloseHandler();
 			await getNoticesByAdminRefetch({ input: noticesInquiry });
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const removeNoticeHandler = async (id: string) => {
+		try {
+			if (await sweetConfirmAlert('Are you sure to remove?')) {
+				await removeFaqByAdmin({
+					variables: {
+						input: id,
+					},
+				});
+				getNoticesByAdminRefetch({ input: noticesInquiry });
+			}
+			menuIconCloseHandler();
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -270,6 +287,23 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 	// );
 	return (
 		<Box component={'div'} className={'content'}>
+			<Box
+				component={'div'}
+				className={'title flex_space'}
+				style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+			>
+				<Typography variant={'h2'}>NOTICE Management</Typography>
+				<Button
+					className="btn_add"
+					variant={'contained'}
+					size={'medium'}
+					onClick={() => router.push(`/_admin/cs/notice_create`)}
+					style={{ color: '#ffffff' }}
+				>
+					<AddRoundedIcon sx={{ mr: '8px', color: '#ffffff' }} />
+					ADD
+				</Button>
+			</Box>
 			<Typography variant={'h2'} className={'tit'} sx={{ mb: '24px' }}>
 				Notices List
 			</Typography>
@@ -369,6 +403,7 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 							menuIconCloseHandler={menuIconCloseHandler}
 							// generateMentorTypeHandle={generateMentorTypeHandle}
 							updateNoticeHandler={updateNoticeHandler}
+							removeNoticeHandler={removeNoticeHandler}
 						/>
 
 						<TablePagination
@@ -398,3 +433,6 @@ AdminNotice.defaultProps = {
 };
 
 export default withAdminLayout(AdminNotice);
+function removeFaqByAdmin(arg0: { variables: { input: string } }) {
+	throw new Error('Function not implemented.');
+}

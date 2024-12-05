@@ -16,6 +16,7 @@ import {
 	Checkbox,
 	Toolbar,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import { IconButton, Tooltip } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -132,6 +133,7 @@ interface NoticeListType {
 	menuIconCloseHandler?: any;
 	generateMentorTypeHandle?: any;
 	updateNoticeHandler: any;
+	removeNoticeHandler: any;
 }
 
 export const NoticeList = (props: NoticeListType) => {
@@ -145,6 +147,7 @@ export const NoticeList = (props: NoticeListType) => {
 		menuIconCloseHandler,
 		generateMentorTypeHandle,
 		updateNoticeHandler,
+		removeNoticeHandler,
 	} = props;
 	const router = useRouter();
 
@@ -184,7 +187,15 @@ export const NoticeList = (props: NoticeListType) => {
 										<TableCell align="left">{notice._id}</TableCell>
 										<TableCell align="left">{moment(notice.createdAt).format('YYYY-MM-DD')}</TableCell>
 
-										<TableCell align="center">...</TableCell>
+										<TableCell align="center">
+											<Button
+												variant="outlined"
+												sx={{ p: '3px', border: 'none', ':hover': { border: '1px solid #000000' } }}
+												onClick={() => removeNoticeHandler(notice._id)}
+											>
+												<DeleteIcon fontSize="small" />
+											</Button>
+										</TableCell>
 
 										<TableCell align="center">
 											<Button onClick={(e: any) => menuIconClickHandler(e, notice._id)} className={'badge success'}>

@@ -21,7 +21,8 @@ import { GET_FAQS_BY_ADMIN } from '../../../apollo/admin/query';
 import { T } from '../../../libs/types/common';
 import { FaqCategory, FaqStatus } from '../../../libs/enums/faq.enum';
 import { FaqUpdate } from '../../../libs/types/faq/faq.update';
-import { sweetErrorHandling } from '../../../libs/sweetAlert';
+import { sweetConfirmAlert, sweetErrorHandling } from '../../../libs/sweetAlert';
+import router from 'next/router';
 
 const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 	const [anchorEl, setAnchorEl] = useState<[] | HTMLElement[]>([]);
@@ -112,6 +113,22 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 			});
 			menuIconCloseHandler();
 			await getFaqsByAdminRefetch({ input: faqsInquiry });
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
+
+	const removeFaqHandler = async (id: string) => {
+		try {
+			if (await sweetConfirmAlert('Are you sure to remove?')) {
+				await removeFaqByAdmin({
+					variables: {
+						input: id,
+					},
+				});
+				getFaqsByAdminRefetch({ input: faqsInquiry });
+			}
+			menuIconCloseHandler();
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
@@ -265,6 +282,23 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 		// 	</Box>
 		// </Box>
 		<Box component={'div'} className={'content'}>
+			<Box
+				component={'div'}
+				className={'title flex_space'}
+				style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+			>
+				<Typography variant={'h2'}>FAQ Management</Typography>
+				<Button
+					className="btn_add"
+					variant={'contained'}
+					size={'medium'}
+					onClick={() => router.push(`/_admin/cs/faq_create`)}
+					style={{ color: '#ffffff' }}
+				>
+					<AddRoundedIcon sx={{ mr: '8px', color: '#ffffff' }} />
+					ADD
+				</Button>
+			</Box>
 			<Typography variant={'h2'} className={'tit'} sx={{ mb: '24px' }}>
 				FAQs List
 			</Typography>
@@ -373,6 +407,7 @@ const FaqArticles: NextPage = ({ initialInquiry, ...props }: any) => {
 							menuIconCloseHandler={menuIconCloseHandler}
 							// generateMentorTypeHandle={generateMentorTypeHandle}
 							updateNoticeHandler={updateNoticeHandler}
+							removeFaqHandler={removeFaqHandler}
 						/>
 
 						<TablePagination
