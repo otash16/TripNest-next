@@ -221,3 +221,94 @@ export const REMOVE_NOTICE_BY_ADMIN = gql`
 		}
 	}
 `;
+
+/**************************
+ *        FAQ     *
+ *************************/
+export const UPDATE_FAQ_BY_ADMIN = gql`
+	mutation UpdateFaq($input: FaqUpdate!) {
+		updateFaq(input: $input) {
+			_id
+			faqCategory
+			faqStatus
+			faqTitle
+			faqContent
+			memberId
+			blockedAt
+			deletedAt
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProperties
+				memberArticles
+				memberFollowers
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				deletedAt
+				createdAt
+				updatedAt
+				accessToken
+			}
+		}
+	}
+`;
+
+export const REMOVE_FAQ_BY_ADMIN = gql`
+	mutation RemoveFaq($input: String!) {
+		removeFaq(faqId: $input) {
+			_id
+			faqCategory
+			faqStatus
+			faqTitle
+			faqContent
+			memberId
+			blockedAt
+			deletedAt
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProperties
+				memberArticles
+				memberFollowers
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				deletedAt
+				createdAt
+				updatedAt
+				accessToken
+			}
+		}
+	}
+`;

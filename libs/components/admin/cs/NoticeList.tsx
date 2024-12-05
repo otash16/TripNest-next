@@ -62,24 +62,13 @@ const headCells: readonly HeadCell[] = [
 		disablePadding: false,
 		label: 'ID',
 	},
-	// {
-	// 	id: 'writer',
-	// 	numeric: true,
-	// 	disablePadding: false,
-	// 	label: 'WRITER',
-	// },
+
 	{
 		id: 'date',
 		numeric: true,
 		disablePadding: false,
 		label: 'DATE',
 	},
-	// {
-	// 	id: 'view',
-	// 	numeric: true,
-	// 	disablePadding: false,
-	// 	label: 'VIEW',
-	// },
 	{
 		id: 'action',
 		numeric: false,
@@ -180,12 +169,9 @@ export const NoticeList = (props: NoticeListType) => {
 
 						{notices?.length !== 0 &&
 							notices?.map((notice: Notice1, index: number) => {
-								// const member_image = member.memberImage
-								// 	? `${REACT_APP_API_URL}/${member.memberImage}`
-								// 	: '/img/profile/defaultUser.svg';
 								return (
 									<TableRow hover key={notice?._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-										<TableCell align="left">{notice._id}</TableCell>
+										<TableCell align="left">{notice.noticeCategory}</TableCell>
 
 										<TableCell align="left" className={'name'}>
 											<Stack direction={'row'}>
@@ -195,41 +181,11 @@ export const NoticeList = (props: NoticeListType) => {
 											</Stack>
 										</TableCell>
 
-										<TableCell align="center">{notice._id}</TableCell>
+										<TableCell align="left">{notice._id}</TableCell>
 										<TableCell align="left">{moment(notice.createdAt).format('YYYY-MM-DD')}</TableCell>
 
-										<TableCell align="center">
-											{/* <Button onClick={(e: any) => menuIconClickHandler(e, index)} className={'badge success'}></Button> */}
-											{notice.noticeCategory}
+										<TableCell align="center">...</TableCell>
 
-											{/* <Menu
-												className={'menu-modal'}
-												MenuListProps={{
-													'aria-labelledby': 'fade-button',
-												}}
-												anchorEl={anchorEl[index]}
-												open={Boolean(anchorEl[index])}
-												onClose={menuIconCloseHandler}
-												TransitionComponent={Fade}
-												sx={{ p: 1 }}
-											>
-												{Object.values(NoticeCategory)
-													.filter((ele) => ele !== notice?.noticeCategory)
-													.map((type: string) => (
-														<MenuItem
-															onClick={() => updateNoticeHandler({ _id: notice._id, noticeCategory: type })}
-															key={type}
-														>
-															<Typography variant={'subtitle1'} component={'span'}>
-																{type}
-															</Typography>
-														</MenuItem>
-													))}
-											</Menu> */}
-										</TableCell>
-
-										{/* <TableCell align="center">{member.memberWarnings}</TableCell>
-										<TableCell align="center">{member.memberBlocks}</TableCell> */}
 										<TableCell align="center">
 											<Button onClick={(e: any) => menuIconClickHandler(e, notice._id)} className={'badge success'}>
 												{notice.noticeStatus}

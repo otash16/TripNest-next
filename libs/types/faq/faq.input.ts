@@ -18,6 +18,7 @@ export interface FaqsInquiry {
 export interface AFISearch {
 	faqStatus?: FaqStatus;
 	faqCategory?: FaqCategory;
+	text?: string;
 }
 
 export interface AllFaqsInquiry {

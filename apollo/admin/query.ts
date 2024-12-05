@@ -238,3 +238,29 @@ export const GET_NOTICES_BY_ADMIN = gql`
 		}
 	}
 `;
+
+/**************************
+ *         FAQ     *
+ *************************/
+
+export const GET_FAQS_BY_ADMIN = gql`
+	query GetAllFaqs($input: AllFaqsInquiry!) {
+		getAllFaqs(input: $input) {
+			list {
+				_id
+				faqCategory
+				faqStatus
+				faqTitle
+				faqContent
+				memberId
+				blockedAt
+				deletedAt
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;

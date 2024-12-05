@@ -50,6 +50,7 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			setNotices(data?.getAllNoticesByAdmin?.list);
+			setNoticesTotal(data?.getAllNoticesByAdmin?.metaCounter[0]?.total ?? 0);
 		},
 	});
 
@@ -313,7 +314,7 @@ const AdminNotice: NextPage = ({ initialInquiry, ...props }: any) => {
 									onChange={(e: any) => textHandler(e.target.value)}
 									sx={{ width: '100%' }}
 									className={'search'}
-									placeholder="Search user name"
+									placeholder="Search notice title"
 									onKeyDown={(event) => {
 										if (event.key == 'Enter') searchTextHandler();
 									}}
