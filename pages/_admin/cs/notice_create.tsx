@@ -1,39 +1,37 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import withAdminLayout from '../../../libs/components/layout/LayoutAdmin';
-
-import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_FAQ_BY_ADMIN } from '../../../apollo/admin/mutation';
-import { T } from '../../../libs/types/common';
-import { FaqCategory, FaqStatus } from '../../../libs/enums/faq.enum';
-import { sweetConfirmAlert, sweetErrorHandling, sweetMixinSuccessAlert } from '../../../libs/sweetAlert';
+import { CREATE_NOTICE_BY_ADMIN } from '../../../apollo/admin/mutation';
+import { useMutation } from '@apollo/client';
+import { sweetErrorHandling, sweetMixinSuccessAlert } from '../../../libs/sweetAlert';
 import router from 'next/router';
+import { NoticeCategory } from '../../../libs/enums/notice.enum copy';
 import { Stack } from '@mui/material';
 
-const CreateFaq = ({ initialValues, ...props }: any) => {
-	const [insertFaqData, setInsertFaqData] = useState<any>(initialValues);
+const CreateNotice = ({ initialValues, ...props }: any) => {
+	const [insertNoticeData, setInsertNoticeData] = useState<any>(initialValues);
 
 	// Mutation for creating a FAQ
-	const [createFaq] = useMutation(CREATE_FAQ_BY_ADMIN);
+	const [createNotice] = useMutation(CREATE_NOTICE_BY_ADMIN);
 
 	const insertFaqHandler = useCallback(async () => {
 		try {
-			const result = await createFaq({
+			const result = await createNotice({
 				variables: {
-					input: insertFaqData,
+					input: insertNoticeData,
 				},
 			});
 
-			await sweetMixinSuccessAlert('This FAQ has been created successfully!');
-			await router.push('/_admin/cs/faq');
+			await sweetMixinSuccessAlert('This NOTICE has been created successfully!');
+			await router.push('/_admin/cs/notice');
 		} catch (err: any) {
 			sweetErrorHandling(err);
 		}
-	}, [insertFaqData]);
+	}, [insertNoticeData]);
 
 	return (
 		<div id="add-faq-page">
 			<div className="main-title-box">
-				<h1 className={'main-title'}>Create New FAQ</h1>
+				<h1 className={'main-title'}>Create New Notice</h1>
 			</div>
 			<div>
 				<div className="config">
@@ -43,9 +41,9 @@ const CreateFaq = ({ initialValues, ...props }: any) => {
 							<input
 								type="text"
 								className="input"
-								placeholder="Question"
-								value={insertFaqData.faqTitle}
-								onChange={({ target: { value } }) => setInsertFaqData({ ...insertFaqData, faqTitle: value })}
+								placeholder="Notice title"
+								value={insertNoticeData.noticeTitle}
+								onChange={({ target: { value } }) => setInsertNoticeData({ ...insertNoticeData, noticeTitle: value })}
 							/>
 						</div>
 
@@ -53,14 +51,16 @@ const CreateFaq = ({ initialValues, ...props }: any) => {
 							<h2 className={'input-title'}>Select Category</h2>
 							<select
 								className="input"
-								value={insertFaqData.faqCategory || 'select'}
-								onChange={({ target: { value } }) => setInsertFaqData({ ...insertFaqData, faqCategory: value })}
+								value={insertNoticeData.noticeCategory || 'select'}
+								onChange={({ target: { value } }) =>
+									setInsertNoticeData({ ...insertNoticeData, noticeCategory: value })
+								}
 							>
 								<option value="select" disabled>
 									Select
 								</option>
 								{/* Map over FaqCategory enum values */}
-								{Object.values(FaqCategory).map((category) => (
+								{Object.values(NoticeCategory).map((category) => (
 									<option key={category} value={category}>
 										{category}
 									</option>
@@ -69,33 +69,32 @@ const CreateFaq = ({ initialValues, ...props }: any) => {
 						</div>
 					</div>
 
-					<h2 className={'input-title'}>Question Answer</h2>
+					{/* <h2 className={'input-title'}>Question Answer</h2>
 					<Stack className="config-column">
 						<textarea
 							name=""
 							id=""
 							className="answer-content-text"
 							placeholder="Write the answer of the question"
-							value={insertFaqData.faqContent}
+							value={insertNoticeData.faqContent}
 							onChange={({ target: { value } }) => setInsertFaqData({ ...insertFaqData, faqContent: value })}
 						></textarea>
-					</Stack>
+					</Stack> */}
 				</div>
 			</div>
 
 			<button className={'insert-btn'} onClick={insertFaqHandler}>
-				Create FAQ
+				Create Notice
 			</button>
 		</div>
 	);
 };
 
-CreateFaq.defaultProps = {
+CreateNotice.defaultProps = {
 	initialValues: {
-		faqCategory: '',
-		faqTitle: '',
-		faqContent: '',
+		noticeCategory: '',
+		noticeTitle: '',
 	},
 };
 
-export default withAdminLayout(CreateFaq);
+export default withAdminLayout(CreateNotice);
