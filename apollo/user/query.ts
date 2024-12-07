@@ -686,3 +686,30 @@ export const GET_FAQS = gql`
 		}
 	}
 `;
+
+/**************************
+ *         NOTIFICITIONS      *
+ *************************/
+export const GET_NOTIFICATIONS = gql`
+	query GetUserNotifications($input: NotificationsInquiry!) {
+		getUserNotifications(input: $input) {
+			list {
+				_id
+				notificationType
+				notificationStatus
+				notificationGroup
+				notificationTitle
+				notificationDesc
+				authorId
+				receiverId
+				productId
+				articleId
+				createdAt
+				updatedAt
+			}
+			metaCounter {
+				total
+			}
+		}
+	}
+`;
