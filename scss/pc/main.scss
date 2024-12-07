@@ -438,6 +438,61 @@ body::-webkit-scrollbar {
 							margin-right: 8px;
 						}
 					}
+					.notification-modal {
+						display: flex;
+						flex-direction: column;
+						background: 'blue';
+						width: 400px;
+						background-color: lightblue;
+						border-radius: 10px;
+						.notification-modal-inner {
+							padding: 20px;
+							.notification-modal-top {
+								display: flex;
+								flex-direction: row;
+								justify-content: space-between;
+								align-items: center;
+								margin-bottom: 20px;
+								.notification-modal-title {
+									font-size: 20px;
+									font-family: 'Poppins', sans-serif;
+									color: #181a20;
+									font-weight: 600;
+								}
+								.notification-modal-delete-btn {
+									padding: 8px 10px;
+									background-color: red;
+									color: #ffffff;
+									font-size: 16px;
+									font-weight: 600;
+								}
+							}
+							.notifications-list {
+								display: flex;
+								flex-direction: column;
+								margin-bottom: 20px;
+								.notification-list-card {
+									display: flex;
+									flex-direction: row;
+									align-items: center;
+									.notification-list-img {
+										width: 42px;
+										height: 42px;
+										border-radius: 50%;
+										margin-right: 15px;
+									}
+								}
+							}
+						}
+						.notification-modal-btn {
+							text-align: center;
+							padding: 10px;
+							background-color: #f97316;
+							color: #ffffff;
+							font-weight: 600;
+							border-radius: 0 0 10px 10px;
+						}
+					}
 				}
 			}
 		}
