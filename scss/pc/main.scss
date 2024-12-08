@@ -338,8 +338,8 @@ body::-webkit-scrollbar {
 						justify-content: space-between;
 						div {
 							position: relative;
-							margin-right: 50px;
 							color: #eeeeeeed;
+							margin-right: 45px;
 							font-family: $font;
 							font-size: 18px;
 							font-style: normal;
@@ -420,6 +420,8 @@ body::-webkit-scrollbar {
 						display: flex;
 						align-items: center;
 						.notification-icon {
+							width: 36px;
+							height: 36px;
 							color: #f97316;
 						}
 						.btn-lang {
@@ -438,11 +440,29 @@ body::-webkit-scrollbar {
 							margin-right: 8px;
 						}
 					}
+
+					.notification-badge {
+						position: absolute;
+						top: -80px;
+						right: 65px;
+						color: #ffffff;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						width: 30px;
+						height: 30px;
+						border-radius: 50%;
+						background-color: red;
+						font-weight: bold;
+						font-size: 14px;
+						padding-top: 2px;
+					}
+
 					.notification-modal {
 						display: flex;
 						flex-direction: column;
 						background: 'blue';
-						width: 400px;
+						width: 420px;
 						background-color: lightblue;
 						border-radius: 10px;
 						.notification-modal-inner {
@@ -452,7 +472,7 @@ body::-webkit-scrollbar {
 								flex-direction: row;
 								justify-content: space-between;
 								align-items: center;
-								margin-bottom: 20px;
+								margin-bottom: 25px;
 								.notification-modal-title {
 									font-size: 20px;
 									font-family: 'Poppins', sans-serif;
@@ -470,27 +490,38 @@ body::-webkit-scrollbar {
 							.notifications-list {
 								display: flex;
 								flex-direction: column;
-								margin-bottom: 20px;
+
 								.notification-list-card {
 									display: flex;
 									flex-direction: row;
 									align-items: center;
+									padding-bottom: 10px;
+									margin-top: 10px;
+									border-bottom: 1px solid #898a8e;
 									.notification-list-img {
-										width: 42px;
-										height: 42px;
+										// width: 42px;
+										// height: 42px;
 										border-radius: 50%;
-										margin-right: 15px;
+										margin-right: 20px;
+									}
+									.notification-list-title {
+										width: 300px;
+										// margin-right: auto;
+									}
+									.delete-btn {
+										margin-left: auto;
 									}
 								}
 							}
 						}
 						.notification-modal-btn {
 							text-align: center;
-							padding: 10px;
+							padding: 15px;
 							background-color: #f97316;
 							color: #ffffff;
 							font-weight: 600;
 							border-radius: 0 0 10px 10px;
+							cursor: pointer;
 						}
 					}
 				}

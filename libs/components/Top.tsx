@@ -18,6 +18,7 @@ import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
 import NotifacationModal from './common/NotificationModal';
+import NotificationBadge from './common/NotificationBadge';
 
 const Top = () => {
 	const device = useDeviceDetect();
@@ -33,6 +34,7 @@ const Top = () => {
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
+	const [isNotifModalOpen, setNotifModalOpen] = useState(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -96,6 +98,10 @@ const Top = () => {
 		} else {
 			setAnchorEl(null);
 		}
+	};
+
+	const toggleNotificationModal = () => {
+		setNotifModalOpen((prev) => !prev);
 	};
 
 	const StyledMenu = styled((props: MenuProps) => (
@@ -192,7 +198,10 @@ const Top = () => {
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div> {t('CS')} </div>
+								<div className={'cs-link'} style={{ width: '45px' }}>
+									{' '}
+									{t('CS')}{' '}
+								</div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>
@@ -237,7 +246,7 @@ const Top = () => {
 								{user?._id && (
 									<>
 										<Button>
-											<NotificationsOutlinedIcon className={'notification-icon'} />
+											<NotificationsOutlinedIcon onClick={toggleNotificationModal} className={'notification-icon'} />
 										</Button>
 									</>
 								)}
@@ -292,8 +301,10 @@ const Top = () => {
 							</div>
 						</Box>
 						<div style={{ position: 'absolute', top: 80, right: 0 }}>
-							<NotifacationModal />
+							{' '}
+							<NotificationBadge />
 						</div>
+						<div style={{ position: 'absolute', top: 80, right: 0 }}>{isNotifModalOpen && <NotifacationModal />}</div>
 					</Stack>
 				</Stack>
 			</Stack>

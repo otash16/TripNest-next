@@ -713,3 +713,28 @@ export const GET_NOTIFICATIONS = gql`
 		}
 	}
 `;
+
+export const MARK_ALL_AS_READ = gql`
+	mutation MarkAllNotificationsAsRead {
+		markAllNotificationsAsRead
+	}
+`;
+
+export const DELETE_NOTIFICATION = gql`
+	mutation RemoveNotification($input: String!) {
+		removeNotification(notificationId: $input) {
+			_id
+			notificationType
+			notificationStatus
+			notificationGroup
+			notificationTitle
+			notificationDesc
+			authorId
+			receiverId
+			productId
+			articleId
+			createdAt
+			updatedAt
+		}
+	}
+`;
