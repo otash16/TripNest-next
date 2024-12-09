@@ -28,40 +28,44 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	};
 
 	if (device === 'mobile') {
-		return (
-			<Stack className="popular-card-box">
-				<Box
-					component={'div'}
-					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
-				>
-					<div className={'price'}>${property.propertyPrice}</div>
-					<div className="like-btn-wrapper">
-						<IconButton color={'default'}>
-							{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-								<FavoriteIcon style={{ color: 'red' }} />
-							) : (
-								<FavoriteIcon />
-							)}
-						</IconButton>
-					</div>
-				</Box>
-				<Box component={'div'} className={'info'}>
-					<strong className={'title'}>{property.propertyTitle}</strong>
-					<p className={'desc'}>{property.propertyAddress}</p>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					<div className={'bott'}>
-						<p>{property?.propertyFamily ? 'Family' : 'Seasonal'}</p>
-						<div className="view-like-box">
-							<IconButton color={'default'}>
-								<RemoveRedEyeIcon />
-							</IconButton>
-							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-						</div>
-					</div>
-				</Box>
-			</Stack>
-		);
+		// return (
+		// 	// <Box component={'div'} className="mobile-card" onClick={() => pushDetailhandler(property._id)}>
+		// 	// 	<Box
+		// 	// 		className={'mobile-card-img'}
+		// 	// 		style={{
+		// 	// 			backgroundImage: imageUrl,
+		// 	// 		}}
+		// 	// 	>
+		// 	// 		<div className={'price'}>{property?.propertyPrice ? `$${property.propertyPrice} / night` : 'N/A'}</div>
+		// 	// 		<IconButton
+		// 	// 			color={'default'}
+		// 	// 			className={'like-btn'}
+		// 	// 			onClick={(event) => {
+		// 	// 				event.stopPropagation();
+		// 	// 				likePropertyHandler(user, property?._id);
+		// 	// 			}}
+		// 	// 		>
+		// 	// 			{property?.meLiked?.[0]?.myFavorite ? <FavoriteIcon style={{ color: 'red' }} /> : <FavoriteIcon />}
+		// 	// 		</IconButton>
+		// 	// 	</Box>
+		// 	// 	<Box className="mobile-info">
+		// 	// 		<Typography className={'title'}>{property.propertyTitle}</Typography>
+		// 	// 		<Typography className={'desc'}>{property.propertyDesc ?? 'No description available'}</Typography>
+		// 	// 		<div className="address-wrapper">
+		// 	// 			<img className="location-icon" src="/img/icons/location.svg" alt="" />
+		// 	// 			<Typography className={'address'}>{property.propertyAddress}</Typography>
+		// 	// 		</div>
+		// 	// 		<Divider sx={{ mt: '10px', mb: '10px' }} />
+		// 	// 		<div className={'bottom-info'}>
+		// 	// 			<Typography className="type">{property?.propertyFamily ? 'Family-Friendly' : 'Seasonal'}</Typography>
+		// 	// 			<div className="view-like-box">
+		// 	// 				<RemoveRedEyeIcon />
+		// 	// 				<Typography>{property?.propertyViews}</Typography>
+		// 	// 			</div>
+		// 	// 		</div>
+		// 	// 	</Box>
+		// 	// </Box>
+		// );
 	} else {
 		return (
 			<Stack className="popular-card-box">

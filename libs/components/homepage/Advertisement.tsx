@@ -14,9 +14,13 @@ const Advertisement = () => {
 					loop
 					playsInline
 					preload="auto"
-					style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+					style={{
+						width: '100%',
+						height: device === 'mobile' ? '400px' : '678px', // Adjust height for mobile
+						objectFit: device === 'mobile' ? 'contain' : 'cover',
+					}}
 				>
-					<source src="/video/ads1.mov" type="video/mp4" />
+					<source src={device === 'mobile' ? '/video/ads1.mov' : '/video/ads1.mp4'} type="video/mp4" />
 				</video>
 			</Stack>
 		);

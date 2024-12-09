@@ -113,23 +113,47 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 						<span>Liked & Loved</span>
 					</Stack>
 					<Stack className={'wrapper'}>
-						<Swiper
-							className={'top-properties-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={29}
-							modules={[Autoplay, Navigation, Pagination]}
-							onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)} // Update currentIndex on slide change
-							initialSlide={currentIndex}
-						>
-							{trendProperties.map((property: Property) => {
-								return (
-									<SwiperSlide className={'trend-property-slide'} key={property?._id}>
-										{/* <TrendPropertyCard property={property} /> */}
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
+						<Box component={'div'} className={'card-wrapper'}>
+							<div className="slide">
+								{/* Render only the current property */}
+								{trendProperties.length > 0 && (
+									<div
+										className="item"
+										key={trendProperties[currentIndex]?._id}
+										style={{
+											backgroundImage: `url(${REACT_APP_API_URL}/${trendProperties[currentIndex]?.propertyImages[0]})`,
+										}}
+									>
+										<div className={'buttons'}>
+											<IconButton color={'default'}>
+												<RemoveRedEyeIcon style={{ width: '25px', height: '25px' }} />
+											</IconButton>
+											<Typography className="view-cnt">{trendProperties[currentIndex]?.propertyViews}</Typography>
+										</div>
+										<div className="content">
+											<div className="name">{trendProperties[currentIndex]?.propertyTitle}</div>
+											<div className="des">{trendProperties[currentIndex]?.propertyDesc}</div>
+											<button
+												onClick={() => {
+													pushDetailhandler(trendProperties[currentIndex]?._id);
+												}}
+											>
+												See More
+											</button>
+										</div>
+									</div>
+								)}
+							</div>
+						</Box>
+
+						<div className="button">
+							<button className="prev" onClick={handlePrev}>
+								<ArrowBackIosNewIcon />
+							</button>
+							<button className="next" onClick={handleNext}>
+								<ArrowForwardIosIcon />
+							</button>
+						</div>
 					</Stack>
 				</Stack>
 			</Stack>

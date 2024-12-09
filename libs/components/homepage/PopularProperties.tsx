@@ -69,17 +69,22 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 			<Stack className={'popular-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular properties</span>
+						<span>Popular Properties</span>
 					</Stack>
-					<Stack className={'card-box'}>
-						{popularProperties.map((property: Property) => {
-							return (
-								<SwiperSlide key={property._id} className={'popular-property-slide'}>
-									<PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
-								</SwiperSlide>
-							);
-						})}
-					</Stack>
+					<Swiper
+						spaceBetween={16}
+						slidesPerView={1.2}
+						modules={[Autoplay, Pagination]}
+						autoplay={{ delay: 3000 }}
+						pagination={{ clickable: true }}
+						className="popular-swiper"
+					>
+						{popularProperties.map((property: Property) => (
+							<SwiperSlide key={property._id}>
+								<PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+							</SwiperSlide>
+						))}
+					</Swiper>
 				</Stack>
 			</Stack>
 		);

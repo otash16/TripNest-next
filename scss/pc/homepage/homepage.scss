@@ -519,6 +519,16 @@
 		box-shadow: -3px 0px 20px 14px #34343480;
 	}
 
+	@media (max-width: 768px) {
+		.video-frame {
+			height: 400px; /* Adjust height for mobile */
+		}
+
+		video {
+			object-fit: contain; /* Ensure the video fits well in smaller viewports */
+		}
+	}
+
 	.top-properties {
 		padding-top: 132px;
 		width: 100%;
