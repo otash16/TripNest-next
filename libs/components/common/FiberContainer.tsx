@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { Preload, Image as ImageImpl } from '@react-three/drei';
 import { ScrollControls, Scroll } from './ScrollControls';
 import * as THREE from 'three';
+import { useTranslation } from 'next-i18next';
 
 function Image(props: any) {
 	const ref = useRef<THREE.Group>();
@@ -45,25 +46,17 @@ function Pages() {
 }
 
 export default function FiberContainer() {
+	const { t } = useTranslation('common'); // Access translations
 	return (
-		// <div className="threeJSContainer" style={{ marginTop: '100px', width: '100%', height: '512px' }}>
-		// 	<Canvas gl={{ antialias: false }} dpr={[1, 1.5]}>
-		// 		<Suspense fallback={null}>
-		// 			<ScrollControls infinite horizontal damping={4} pages={4} distance={1}>
-		// 				<Scroll>
-		// 					<Pages />
-		// 				</Scroll>
-		// 			</ScrollControls>
-		// 			<Preload />
-		// 		</Suspense>
-		// 	</Canvas>
-		// </div>
 		<div className="top-wrapper">
 			<h1 className="top-title">
-				Discover Seoul’s Ultimate Destinations <br /> for Your Next Getaway
+				{/* Render using React safely */}
+				<span
+					dangerouslySetInnerHTML={{ __html: t('Discover Seoul’s Ultimate Destinations <br /> for Your Next Getaway') }}
+				/>
 			</h1>
 			<h3 className="top-subtitle">
-				Uncover hidden gems and iconic spots in every part of Seoul, tailored for every traveler
+				{t('Uncover hidden gems and iconic spots in every part of Seoul, tailored for every traveler')}
 			</h3>
 		</div>
 	);

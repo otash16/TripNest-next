@@ -153,7 +153,7 @@ const Top = () => {
 					<div>{t('Home')}</div>
 				</Link>
 				<Link href={'/property'}>
-					<div>{t('Properties')}</div>
+					<div>{t('Destinations')}</div>
 				</Link>
 				<Link href={'/agent'}>
 					<div> {t('Agents')} </div>
@@ -198,10 +198,7 @@ const Top = () => {
 								</Link>
 							)}
 							<Link href={'/cs'}>
-								<div className={'cs-link'} style={{ width: '45px' }}>
-									{' '}
-									{t('CS')}{' '}
-								</div>
+								<div className={'cs-link'}> {t('CS')} </div>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'user-box'}>

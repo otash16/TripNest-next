@@ -339,7 +339,7 @@ body::-webkit-scrollbar {
 						div {
 							position: relative;
 							color: #eeeeeeed;
-							margin-right: 45px;
+							margin-right: 10px;
 							font-family: $font;
 							font-size: 18px;
 							font-style: normal;
@@ -777,6 +777,9 @@ body::-webkit-scrollbar {
 			text-align: center;
 			color: #ffffff;
 			.top-title {
+				max-width: 1200px;
+				margin-left: auto;
+				margin-right: auto;
 				font-size: 60px;
 				line-height: 1.2;
 				text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
