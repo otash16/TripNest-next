@@ -73,12 +73,12 @@ const Join: NextPage = () => {
 						<Stack className={'left'}>
 							{/* @ts-ignore */}
 							<Box className={'logo'}>
-								<img src="/img/logo/logoText.svg" alt="" />
-								<span>Nestar</span>
+								<img src="/img/logo/logo.svg" alt="" />
+								<span>EaseUp</span>
 							</Box>
 							<Box className={'info'}>
 								<span>{loginView ? 'login' : 'signup'}</span>
-								<p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>
+								{/* <p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p> */}
 							</Box>
 							<Box className={'input-wrap'}>
 								<div className={'input-box'}>
@@ -129,12 +129,14 @@ const Join: NextPage = () => {
 										<div>
 											<FormGroup>
 												<FormControlLabel
+													style={{ color: '#f97316' }}
 													control={
 														<Checkbox
 															size="small"
 															name={'USER'}
 															onChange={checkUserTypeHandler}
 															checked={input?.type == 'USER'}
+															style={{ color: '#f97316' }}
 														/>
 													}
 													label="User"
@@ -142,12 +144,14 @@ const Join: NextPage = () => {
 											</FormGroup>
 											<FormGroup>
 												<FormControlLabel
+													style={{ color: '#f97316' }}
 													control={
 														<Checkbox
 															size="small"
 															name={'AGENT'}
 															onChange={checkUserTypeHandler}
 															checked={input?.type == 'AGENT'}
+															style={{ color: '#f97316' }}
 														/>
 													}
 													label="Agent"
@@ -159,8 +163,13 @@ const Join: NextPage = () => {
 
 								{loginView && (
 									<div className={'remember-info'}>
-										<FormGroup>
-											<FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember me" />
+										<FormGroup style={{ color: '#f97316', fontWeight: '500' }}>
+											<FormControlLabel
+												control={
+													<Checkbox defaultChecked size="small" style={{ color: '#f97316', fontWeight: '500' }} />
+												}
+												label="Remember me"
+											/>
 										</FormGroup>
 										<a>Lost your password?</a>
 									</div>
@@ -206,7 +215,7 @@ const Join: NextPage = () => {
 								)}
 							</Box>
 						</Stack>
-						<Stack className={'right'}></Stack>
+						{/* <Stack className={'right'}></Stack> */}
 					</Stack>
 				</Stack>
 			</Stack>

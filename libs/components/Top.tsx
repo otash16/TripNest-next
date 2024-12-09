@@ -300,11 +300,18 @@ const Top = () => {
 								</StyledMenu>
 							</div>
 						</Box>
-						<div style={{ position: 'absolute', top: 80, right: 0 }}>
-							{' '}
-							<NotificationBadge />
-						</div>
-						<div style={{ position: 'absolute', top: 80, right: 0 }}>{isNotifModalOpen && <NotifacationModal />}</div>
+						{user?._id ? (
+							<>
+								<div style={{ position: 'absolute', top: 80, right: 0 }}>
+									<NotificationBadge />
+								</div>
+								{isNotifModalOpen && (
+									<div style={{ position: 'absolute', top: 80, right: 0 }}>
+										<NotifacationModal />
+									</div>
+								)}
+							</>
+						) : null}
 					</Stack>
 				</Stack>
 			</Stack>
