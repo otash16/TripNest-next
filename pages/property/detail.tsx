@@ -326,36 +326,13 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 								</Stack>
 							</Stack>
 							<Stack className={'images'}>
-								{/* <Stack className={'main-image'}>
-									<img
-										src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/property/bigImage.png'}
-										alt={'main-image'}
-									/>
-								</Stack> */}
-								{/* <Stack className={'sub-images'}>
-									{property?.propertyImages.map((subImg: string) => {
-										const imagePath: string = `${REACT_APP_API_URL}/${subImg}`;
-										return (
-											<Stack className={'sub-img-box'} onClick={() => changeImageHandler(subImg)} key={subImg}>
-												<img src={imagePath} alt={'sub-image'} />
-											</Stack>
-										);
-									})}
-								</Stack> */}
 								<div className="wrapper">
 									<input type="radio" name="slide" id="one" checked />
 									<input type="radio" name="slide" id="two" />
 									<input type="radio" name="slide" id="three" />
 									<input type="radio" name="slide" id="four" />
 									<div className="img img-1">
-										<img
-											src={
-												property?.propertyImages?.[0]
-													? `${REACT_APP_API_URL}/${property?.propertyImages?.[0]}`
-													: '/img/property/bigImage.png'
-											}
-											alt=""
-										/>
+										<img src={`${REACT_APP_API_URL}/${property?.propertyImages?.[0]}`} alt="Property Image" />
 									</div>
 									<div className="img img-2">
 										<img
