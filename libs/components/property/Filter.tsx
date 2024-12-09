@@ -665,6 +665,7 @@ const Filter = (props: FilterType) => {
 											value={location}
 											checked={(searchFilter?.search?.locationList || []).includes(location as PropertyLocation)}
 											onChange={propertyLocationSelectHandler}
+											readOnly
 										/>
 										<label className={'location-label'} htmlFor={location} style={{ cursor: 'pointer' }}>
 											<Typography className="property-type">{location}</Typography>
@@ -687,6 +688,7 @@ const Filter = (props: FilterType) => {
 										value={type}
 										onChange={propertyTypeSelectHandler}
 										checked={(searchFilter?.search?.typeList || []).includes(type as PropertyType)}
+										readOnly
 									/>
 									<label style={{ cursor: 'pointer' }}>
 										<Typography className="property_type" style={{ textTransform: 'lowercase' }}>
@@ -838,6 +840,7 @@ const Filter = (props: FilterType) => {
 									value={'propertySeasonal'}
 									checked={(searchFilter?.search?.options || []).includes('propertySeasonal')}
 									onChange={propertyOptionSelectHandler}
+									readOnly
 								/>
 								<label htmlFor={'Seasonal'} style={{ cursor: 'pointer' }}>
 									<Typography className="propert-type">Seasonal</Typography>
@@ -852,6 +855,7 @@ const Filter = (props: FilterType) => {
 									value={'propertyFamily'}
 									checked={(searchFilter?.search?.options || []).includes('propertyFamily')}
 									onChange={propertyOptionSelectHandler}
+									readOnly
 								/>
 								<label htmlFor={'Family'} style={{ cursor: 'pointer' }}>
 									<Typography className="propert-type">Family</Typography>

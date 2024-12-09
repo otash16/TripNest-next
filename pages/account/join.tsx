@@ -137,6 +137,7 @@ const Join: NextPage = () => {
 															onChange={checkUserTypeHandler}
 															checked={input?.type == 'USER'}
 															style={{ color: '#f97316' }}
+															readOnly
 														/>
 													}
 													label="User"
@@ -152,6 +153,7 @@ const Join: NextPage = () => {
 															onChange={checkUserTypeHandler}
 															checked={input?.type == 'AGENT'}
 															style={{ color: '#f97316' }}
+															readOnly
 														/>
 													}
 													label="Agent"

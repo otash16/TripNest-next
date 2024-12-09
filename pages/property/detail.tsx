@@ -327,7 +327,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 							</Stack>
 							<Stack className={'images'}>
 								<div className="wrapper">
-									<input type="radio" name="slide" id="one" checked />
+									<input type="radio" name="slide" id="one" checked readOnly />
 									<input type="radio" name="slide" id="two" />
 									<input type="radio" name="slide" id="three" />
 									<input type="radio" name="slide" id="four" />
