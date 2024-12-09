@@ -8,8 +8,8 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 
 export const RippleBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
-		backgroundColor: '#b4dcff8f',
-		color: '#2c40bdd6',
+		backgroundColor: '#fff1b3 ',
+		color: '#f97316',
 		boxShadow: `0`,
 		'&::after': {
 			position: 'absolute',
@@ -19,7 +19,7 @@ export const RippleBadge = styled(Badge)(({ theme }) => ({
 			height: '100%',
 			borderRadius: '50%',
 			animation: 'ripple 1.2s infinite ease-in-out',
-			border: '2px solid #32c2c1',
+			border: '2px solid #f97316',
 			content: '""',
 		},
 	},
