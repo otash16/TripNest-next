@@ -63,9 +63,7 @@ const PropertyCard = (props: PropertyCardType) => {
 							</Link>
 						</Stack>
 						<Stack className="address">
-							<Typography>
-								{property.propertyAddress}, {property.propertyLocation}
-							</Typography>
+							<Typography>{property.propertyAddress},</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="options">

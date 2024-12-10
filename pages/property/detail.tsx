@@ -332,37 +332,16 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 									<input type="radio" name="slide" id="three" />
 									<input type="radio" name="slide" id="four" />
 									<div className="img img-1">
-										<img src={`${REACT_APP_API_URL}/${property?.propertyImages?.[0]}`} alt="Property Image" />
+										<img src={`${REACT_APP_API_URL}/${property?.propertyImages?.[0]}`} />
 									</div>
 									<div className="img img-2">
-										<img
-											src={
-												property?.propertyImages?.[1]
-													? `${REACT_APP_API_URL}/${property?.propertyImages?.[1]}`
-													: '/img/banner/header1.svg'
-											}
-											alt=""
-										/>
+										<img src={`${REACT_APP_API_URL}/${property?.propertyImages?.[1]}`} />
 									</div>
 									<div className="img img-3">
-										<img
-											src={
-												property?.propertyImages?.[2]
-													? `${REACT_APP_API_URL}/${property?.propertyImages?.[2]}`
-													: '/img/banner/header1.svg'
-											}
-											alt=""
-										/>
+										<img src={`${REACT_APP_API_URL}/${property?.propertyImages?.[2]}`} />
 									</div>
 									<div className="img img-4">
-										<img
-											src={
-												property?.propertyImages?.[3]
-													? `${REACT_APP_API_URL}/${property?.propertyImages?.[3]}`
-													: '/img/banner/header1.svg'
-											}
-											alt=""
-										/>
+										<img src={`${REACT_APP_API_URL}/${property?.propertyImages?.[3]}`} />
 									</div>
 									<div className="sliders">
 										<label htmlFor="one" className="one"></label>
