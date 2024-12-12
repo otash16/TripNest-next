@@ -81,7 +81,7 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 					>
 						{popularProperties.map((property: Property) => (
 							<SwiperSlide key={property._id}>
-								<PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+								<PopularPropertyCard key={property._id} property={property} likePropertyHandler={likePropertyHandler} />
 							</SwiperSlide>
 						))}
 					</Swiper>
@@ -100,7 +100,9 @@ const PopularProperties = (props: PopularPropertiesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						{popularProperties.map((property: Property) => {
-							return <PopularPropertyCard property={property} likePropertyHandler={likePropertyHandler} />;
+							return (
+								<PopularPropertyCard key={property._id} property={property} likePropertyHandler={likePropertyHandler} />
+							);
 						})}
 					</Stack>
 					<Box component={'div'} className={'right'}>

@@ -93,7 +93,13 @@ const BoardArticles = (props: BoardArticlesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						{boardArticles.map((article: BoardArticle) => {
-							return <CommunityCard article={article} likeArticleHandler={likeArticleHandler} />;
+							return (
+								<CommunityCard
+									key={article._id} // Add the key prop here
+									article={article}
+									likeArticleHandler={likeArticleHandler}
+								/>
+							);
 						})}
 					</Stack>
 				</Stack>
