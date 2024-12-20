@@ -30,10 +30,13 @@ const NotificationBadge = (props: NotificationsProps) => {
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setTotal(data?.getUserNotifications?.metaCounter[0].total);
+			// Check if metaCounter exists and has elements before accessing 'total'
+			const totalCount = data?.getUserNotifications?.metaCounter?.[0]?.total ?? 0; // Default to 0 if total is not found
+			setTotal(totalCount);
 		},
 	});
 
+	// If the total is 0, we don't render the component
 	if (total === 0) {
 		return null;
 	}

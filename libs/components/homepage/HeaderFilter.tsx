@@ -354,7 +354,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{propertyLocation.map((location: string) => {
 							return (
 								<div onClick={() => propertyLocationSelectHandler(location)} key={location}>
-									<img src={`img/banner/cities/${location.toLowerCase()}.webp`} alt="" />
+									<img src={`img/banner/cities/${location}.webp`} alt="" />
 									<span>{location}</span>
 								</div>
 							);
