@@ -1,5 +1,3 @@
-version: '3.3'
-
 services:
   easeUp-next:
     container_name: easeUp-next
